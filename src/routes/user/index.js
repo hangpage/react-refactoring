@@ -16,6 +16,7 @@ function Users({ location, dispatch, users }){
       { field: 'identityType', text: '证件类型', type: 'combobox', datasource: dict.activityStatus},
       { field: 'identityCode', text: '证件号码'}
     ],
+
   };
   const userListProps={
     dataSource: list,

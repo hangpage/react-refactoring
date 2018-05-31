@@ -38,12 +38,7 @@ class AdvancedSearchForm extends React.Component {
         children.push(
           <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={`${fieldList[i].text}`}>
-              {getFieldDecorator(`${fieldList[i].field}`, {
-                rules: [{
-                  required: true,
-                  message: 'Input something!',
-                }],
-              })(
+              {getFieldDecorator(`${fieldList[i].field}`)(
                 <ComboBox options={fieldList[i].datasource}/>
               )}
             </FormItem>
@@ -80,9 +75,9 @@ class AdvancedSearchForm extends React.Component {
           <Row gutter={24}>{this.getFields()}</Row>
           <Row>
             <Col span={24} style={{ textAlign: 'right' }}>
-              <Button type="primary" htmlType="submit">Search</Button>
+              <Button type="primary" htmlType="submit">搜索</Button>
               <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
-                Clear
+                重置
               </Button>
               <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
                 Collapse <Icon type={this.state.expand ? 'up' : 'down'} />
