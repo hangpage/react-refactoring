@@ -1,0 +1,9 @@
+{
+  "proxy": {
+    "/api": {
+      "target": "http://test.zanchina.com/",
+      "changeOrigin": true,
+      "pathRewrite": { "^/api" : "" }
+    }
+  }
+}
