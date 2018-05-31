@@ -11,3 +11,5 @@
 提供 onChange 事件或 trigger 的值同名的事件。
 
 不能是函数式组件。
+
+[自定义表单控件](https://ant.design/components/form-cn/#components-form-demo-customized-form-controls)
