@@ -1,15 +1,17 @@
-
-html, body, :global(#root) {
+html,
+body,
+:global(#root) {
   height: 100%;
 }
-
-body{
+body {
   padding: 10px;
 }
-
-.verticalCenter{
+.verticalCenter {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+.mt10 {
+  margin-top: 10px;
 }

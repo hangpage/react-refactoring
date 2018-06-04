@@ -61,9 +61,9 @@ const Login = ({
 }
 
 Login.propTypes = {
-  // form: PropTypes.object,
-  // dispatch: PropTypes.func,
-  // loading: PropTypes.object,
+  form: PropTypes.object,
+  dispatch: PropTypes.func,
+  loading: PropTypes.object,
 }
 
 export default connect(({ loading }) => ({ loading }))(Form.create()(Login))

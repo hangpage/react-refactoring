@@ -7,7 +7,7 @@ const Option = Select.Option;
 
 class ComboBox extends React.Component {
   state = {
-    value: ''
+    identityType: ''
   }
   getOptions(options) {
     const ops = [];
@@ -18,11 +18,11 @@ class ComboBox extends React.Component {
     return ops;
   }
 
-  handleChange = (value) => {
+  handleChange = (identityType) => {
     this.setState({
-      value
+      identityType
     })
-    this.triggerChange({value})
+    this.triggerChange({identityType})
   }
 
   triggerChange = (changedValue) => {

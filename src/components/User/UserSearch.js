@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Input, Button, Icon } from 'antd';
-import ComboBox from '../common/ComboBox'
-import css from './UserSearch.less'
+import { Form, Row, Col, Input, Button, Icon, Select } from 'antd';
 const FormItem = Form.Item;
 
 class AdvancedSearchForm extends React.Component {
   state = {
     expand: false,
+    pageSize: this.props.pageSize
   };
 
   handleSearch = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       console.log('Received values of form: ', values);
+      this.props.onSearch({...values, pageSize: this.state.pageSize});
     });
+
   }
 
   handleReset = () => {
@@ -35,11 +36,16 @@ class AdvancedSearchForm extends React.Component {
     const fieldList = this.props.queryFieldList;
     for (let i = 0; i < fieldList.length; i++) {
       if(fieldList[i].type === 'combobox'){
+        const options = fieldList[i].datasource.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
         children.push(
           <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={`${fieldList[i].text}`}>
-              {getFieldDecorator(`${fieldList[i].field}`)(
-                <ComboBox options={fieldList[i].datasource}/>
+              {getFieldDecorator(`${fieldList[i].field}`, {
+                initialValue: fieldList[i].defaultValue,
+              })(
+                <Select allowClear={true}>
+                  {options}
+                </Select>
               )}
             </FormItem>
           </Col>
@@ -49,10 +55,7 @@ class AdvancedSearchForm extends React.Component {
           <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={`${fieldList[i].text}`}>
               {getFieldDecorator(`${fieldList[i].field}`, {
-                rules: [{
-                  required: true,
-                  message: 'Input something!',
-                }],
+                initialValue: fieldList[i].defaultValue,
               })(
                 <Input placeholder="请填写" />
               )}
@@ -88,6 +91,10 @@ class AdvancedSearchForm extends React.Component {
       </div>
     );
   }
+}
+
+AdvancedSearchForm.propTypes = {
+  onSearch: PropTypes.func
 }
 
 export default Form.create()(AdvancedSearchForm);

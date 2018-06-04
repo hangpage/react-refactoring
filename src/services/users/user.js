@@ -1,5 +1,10 @@
 import request from '../../utils/request';
+import qs from 'qs';
 
 export async function query(params) {
-  return request('/api/sys/dict/type/MEMBER_HealthCirculatory');
+  return request('/api/member/info/list?'+ qs.stringify(params),{
+    method: 'GET',
+    headers: new Headers(),
+    credentials: "include"
+  });
 }
