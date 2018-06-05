@@ -15,13 +15,13 @@
 
 ### 定义组件的方式
 
-// 1. 传统写法
+ 1. 传统写法
 const App = React.createClass({});
 
-// 2. es6 的写法
+ 2. es6 的写法
 class App extends React.Component({});
 
-// 3. stateless 的写法（我们推荐的写法）
+ 3. stateless 的写法（我们推荐的写法）
 const App = (props) => ({});
 
 [自定义表单控件](https://ant.design/components/form-cn/#components-form-demo-customized-form-controls)
