@@ -1,4 +1,4 @@
-import {query} from '../../services/users/user'
+import {query, del, add} from '../../services/users/user'
 import { message } from 'antd';
 
 export default {
@@ -34,7 +34,7 @@ export default {
     *query({payload}, {select, put, call}){
         yield put({ type: 'showLoading' });
         const { data } = yield call(query, payload);
-        if (data) {
+        if (data.success) {
           yield put({
             type: 'querySuccess',
             payload: {
@@ -45,10 +45,28 @@ export default {
           });
         }
     },
-    *create(){},
+    *create({payload}, {select, put, call}){
+        console.log(payload)
+        const {data} = yield call(add, payload);
+        if (data.success) {
+          yield put({
+            type: 'createSuccess',
+            payload: {
+              list: data.data,
+              total: data.total,
+              current: payload.current || 1
+            }
+          });
+        }
+    },
     // 因为delete是关键字
-    async 'delete'({payload}){
-        await message.success('Click on Yes');
+    *'delete'({payload}, {select, put, call}){
+        yield put({ type: 'showLoading' });
+        const { data } = yield call(del, payload);
+        if (data.success) {
+          yield message.success(data.msg);
+          yield put({type: 'deleteSuccess'});
+        }
     },
     *update(){}
   },
@@ -58,8 +76,8 @@ export default {
     showLoading(state, action){
       return { ...state, loading: true }
     },
-    showModal(state){
-      return { ...state, modalVisible: true }
+    showModal(state, action){
+      return { ...state, modalVisible: true, modalType: action.payload.modalType }
     },
     hideModal(state){
       return { ...state, modalVisible: false }
@@ -70,8 +88,12 @@ export default {
     handPageClick(state, action){
       return { ...state, current: action.payload.current, pageNum: action.payload.current }
     },
-    createSuccess(){},
-    deleteSuccess(){},
+    createSuccess(state, action){
+      return { ...state, loading: false }
+    },
+    deleteSuccess(state, action){
+      return { ...state, loading: false }
+    },
     updateSuccess(){},
   },
 

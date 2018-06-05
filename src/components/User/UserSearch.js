@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 import PropTypes from 'prop-types';
 import { Form, Row, Col, Input, Button, Icon, Select } from 'antd';
+import SearchButton from '../common/SearchButton'
+import styles from '../../index.less';
 const FormItem = Form.Item;
 
 class AdvancedSearchForm extends React.Component {
@@ -12,11 +14,7 @@ class AdvancedSearchForm extends React.Component {
 
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.form.validateFields((err, values) => {
-      console.log('Received values of form: ', values);
-      this.props.onSearch({...values, pageSize: this.state.pageSize});
-    });
-
+    this.props.onSearch({...this.props.form.getFieldsValue(), pageSize: this.state.pageSize});
   }
 
   handleReset = () => {
@@ -77,14 +75,9 @@ class AdvancedSearchForm extends React.Component {
         >
           <Row gutter={24}>{this.getFields()}</Row>
           <Row>
-            <Col span={24} style={{ textAlign: 'right' }}>
-              <Button type="primary" htmlType="submit">搜索</Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleReset}>
-                重置
-              </Button>
-              <a style={{ marginLeft: 8, fontSize: 12 }} onClick={this.toggle}>
-                Collapse <Icon type={this.state.expand ? 'up' : 'down'} />
-              </a>
+            <Col span={24} className={ styles.lyb_flex_sb }>
+              <Button type="primary" onClick={this.props.onCreat}>新增</Button>
+              <SearchButton handleReset={this.handleReset} collapseClick={this.toggle} expand={this.state.expand} />
             </Col>
           </Row>
         </Form>

@@ -1,67 +1,101 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import UserList from '../../components/User/UserList';
 import UserSearch from '../../components/User/UserSearch';
 import dict from '../../utils/dictionary'
 
-function Users({ location, dispatch, users }){
+function Users({location, dispatch, users}) {
   const {
     loading, list, total, current,
     currentItem, modalVisible, modalType, pageSize, pageNum
   } = users;
+
+  const handleRefresh = () => {
+    dispatch({
+      type: 'users/query',
+      payload: {
+        pageSize: pageSize || 20,
+        pageNum: current,
+      }
+    })
+  }
+
+
   const userSearchProps = {
     queryFieldList: [
-      { field: 'name', text: '姓名', defaultValue: ''},
-      { field: 'mobile', text: '手机号', defaultValue: ''},
-      { field: 'identityType', text: '证件类型', type: 'combobox', datasource: dict.activityStatus, defaultValue: ''},
-      { field: 'identityCode', text: '证件号码', defaultValue: ''},
-      { field: 'archivesNo', text: '档案号', defaultValue: ''},
-      { field: 'memberLevel', text: '会员卡级别', defaultValue: ''},
-      { field: 'cardStatus', text: '会员卡状态', defaultValue: ''},
-      { field: 'memberCardNum', text: '会员卡号', defaultValue: ''},
-      { field: 'profileLocation', text: '门店', defaultValue: ''},
-      { field: 'firstDisease', text: '病种', defaultValue: ''},
+      {field: 'name', text: '姓名', defaultValue: ''},
+      {field: 'mobile', text: '手机号', defaultValue: ''},
+      {field: 'identityType', text: '证件类型', type: 'combobox', datasource: dict.activityStatus, defaultValue: ''},
+      {field: 'identityCode', text: '证件号码', defaultValue: ''},
+      {field: 'archivesNo', text: '档案号', defaultValue: ''},
+      {field: 'memberLevel', text: '会员卡级别', defaultValue: ''},
+      {field: 'cardStatus', text: '会员卡状态', defaultValue: ''},
+      {field: 'memberCardNum', text: '会员卡号', defaultValue: ''},
+      {field: 'profileLocation', text: '门店', defaultValue: ''},
+      {field: 'firstDisease', text: '病种', defaultValue: ''},
     ],
     pageSize: 20,
     pageNum: current,
-    onSearch(params){
-        dispatch({
-          type: 'users/query',
-          payload: params
-        })
+    onSearch(params) {
+      dispatch({
+        type: 'users/query',
+        payload: params
+      })
+    },
+    onCreat() {
+      dispatch({
+        type: 'users/showModal',
+        payload: {
+          modalType: 'creat',
+        }
+      })
     }
   };
-  const userListProps={
+  const userListProps = {
     dataSource: list,
     total,
     loading,
     current,
     modalVisible,
+    modalType,
     pageSize: pageSize || 20,
     size: 'small',
-    onComfirmClick(id){
+    onComfirmClick(id) {
       dispatch({
         type: 'users/delete',
-        payload: {id: id}
+        payload: {
+          id: id
+        }
+      }).then(() => {
+        handleRefresh()
       })
     },
-    onEditClick(id){
+    onEditClick(id) {
       dispatch({
-        type: 'users/showModal'
+        type: 'users/showModal',
+        payload: {
+          modalType: 'update'
+        }
       })
     },
-    onModalCancelClick(){
+    onModalCancelClick() {
       dispatch({
         type: 'users/hideModal'
       })
     },
-    onModalOkClick(){
+    onModalOkClick(params) {
       dispatch({
-        type: 'users/hideModal'
+        type: 'users/create',
+        payload: params
       })
     },
-    onPageChange(pagination, filters, sorter){
+    onCancelClick() {
+        dispatch({
+          type: 'users/hideModal'
+        })
+    },
+    onPageChange(pagination, filters, sorter) {
       dispatch({
         type: 'users/query',
         payload: {
@@ -82,13 +116,11 @@ function Users({ location, dispatch, users }){
 }
 
 
-Users.propTypes = {
-
-};
+Users.propTypes = {};
 
 // 指定订阅数据，这里关联了 users
 //使用 connect() 前，需要先定义 mapStateToProps 这个函数来指定如何把当前 Redux store state 映射到展示组件的 props 中
-function mapStateToProps({ users }) {
+function mapStateToProps({users}) {
   return {users};
 }
 

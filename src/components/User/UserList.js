@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Modal, Popconfirm} from 'antd';
+import {Table, Popconfirm} from 'antd';
+import Dialog from './Modal';
 import styles from '../../index.less';
 
 const UserList = ({
@@ -13,10 +14,17 @@ const UserList = ({
                     onComfirmClick,
                     onEditClick,
                     modalVisible,
-                    onModalCancelClick,
+                    modalType,
                     onModalOkClick,
-                    onPageChange
+                    onModalCancelClick,
+                    onPageChange,
                   }) => {
+
+  const handleConfirmClick = (record, e) => {
+    onComfirmClick(record.id);
+  }
+
+
   const columns = [{
     title: '姓名',
     dataIndex: 'memberName',
@@ -56,7 +64,7 @@ const UserList = ({
       <p>
         <a onClick={onEditClick}>编辑</a>
         &nbsp;
-        <Popconfirm title="确定要删除吗？" onConfirm={onComfirmClick}>
+        <Popconfirm title="确定要删除吗？" onConfirm={e => handleConfirmClick(record, e)} cancelText="取消">
           <a>删除</a>
         </Popconfirm>
       </p>
@@ -80,16 +88,8 @@ const UserList = ({
         pagination={pagination}
         size={size}
         className={styles.mt10}
-      /><Modal
-      title="Basic Modal"
-      visible={modalVisible}
-      onCancel={onModalCancelClick}
-      onOk={onModalOkClick}
-    >
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-    </Modal>
+      />
+      <Dialog modalVisible={modalVisible} onModalOkClick={onModalOkClick} onModalCancelClick={onModalCancelClick} modalType={modalType} />
     </div>
   )
 }

@@ -15,3 +15,7 @@ body {
 .mt10 {
   margin-top: 10px;
 }
+.lyb_flex_sb {
+  display: flex;
+  justify-content: space-between;
+}
