@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Form, Input, Tooltip, Icon, Modal, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete} from 'antd';
+import {Form, Input, Tooltip, Icon, Modal, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, DatePicker} from 'antd';
 import dict from '../../utils/dictionary'
 
 const Option = Select.Option;
@@ -67,14 +67,6 @@ const Dialog = ({
                     getFieldsValue,
                   },
                 }) => {
-  const prefixSelector = getFieldDecorator('prefix', {
-    initialValue: '86',
-  })(
-    <Select style={{ width: 70 }}>
-      <Option value="86">+86</Option>
-      <Option value="87">+87</Option>
-    </Select>
-  );
 
   const handleOk = () => {
     // validateFields(errors) => {
@@ -83,6 +75,7 @@ const Dialog = ({
     onModalOkClick(getFieldsValue())
   }
 
+  const options = dict.sex.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
   return (
     <Modal
       title={modalType === 'creat' ? '新增' : '编辑'}
@@ -109,10 +102,32 @@ const Dialog = ({
           {...formItemLayout}
           label="手机号"
         >
-          {getFieldDecorator('phone', {
+          {getFieldDecorator('mobile', {
             rules: [{ required: true, message: '请输入手机号!' }],
           })(
-            <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+            <Input />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="性别"
+        >
+          {getFieldDecorator('gender', {
+            rules: [{ required: true, message: '请选择性别!' }],
+          })(
+            <Select allowClear={true}>
+              {options}
+            </Select>
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="生日"
+        >
+          {getFieldDecorator('birthday', {
+            rules: [{ required: true, message: '请选择生日!' }],
+          })(
+            <DatePicker allowClear={true} showToday={false} placeholder="" />
           )}
         </FormItem>
       </Form>

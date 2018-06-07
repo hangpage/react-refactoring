@@ -13,8 +13,8 @@ const app = dva();
 /*
 *  一定要把model注入要app中！！！
 * */
-app.model(require('./models/user/user.js').default);
-app.model(require('./models/login/login.js').default);
+app.model(require('./models/user/UserModel.js').default);
+app.model(require('./models/login/LoginModal.js').default);
 
 // 4. Router
 app.router(require('./router').default);
