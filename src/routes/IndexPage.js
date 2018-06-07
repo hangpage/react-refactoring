@@ -1,14 +1,68 @@
 import React from 'react';
 import { connect } from 'dva';
+import _ from 'lodash';
 import { Link } from 'dva/router';
 import styles from './IndexPage.css';
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import MainTab from '../components/common/MainTab'
+import User from './user';
 const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout;
 
 
-function IndexPage() {
+function IndexPage({location, dispatch, app}) {
+
+  const {
+    panes,
+    newTabIndex,
+    activeKey
+  } = app;
+
+  const tabProps = {
+    panes: panes,
+    newTabIndex: newTabIndex,
+    activeKey: activeKey,
+    addTab(){
+      dispatch({
+        type: 'app/addTab',
+      })
+    },
+
+    removeTab(targetKey){
+      dispatch({
+        type: 'app/removeTab',
+        payload: {
+          targetKey: targetKey,
+        }
+      })
+    },
+    changeTab(targetKey){
+      dispatch({
+        type: 'app/changeTab',
+        payload: {
+          targetKey: targetKey
+        }
+      })
+    }
+  }
+
+  const onMenuItemClick = (e) => {
+    const item = {
+      title: '用户列表',
+      key: '2',
+      content: <User />
+    }
+    
+    if(_.find(panes, {key: item.key})){
+        return false;
+    }
+
+     dispatch({
+       type: 'app/addTab',
+       payload: item
+     })
+  }
+
   return (
     <div>
       <Layout>
@@ -32,10 +86,12 @@ function IndexPage() {
               defaultSelectedKeys={['1']}
               defaultOpenKeys={['sub1']}
               style={{ height: '100%', borderRight: 0 }}
+              onClick={onMenuItemClick}
             >
               <SubMenu key="sub1" title={<span><Icon type="user" />subnav 1</span>}>
                 <Menu.Item key="1">
-                  <Link to="/user">用户列表</Link>
+                  用户列表
+                  {/*<Link to="/user">用户列表</Link>*/}
                 </Menu.Item>
                 <Menu.Item key="2">option2</Menu.Item>
                 <Menu.Item key="3">option3</Menu.Item>
@@ -56,8 +112,8 @@ function IndexPage() {
             </Menu>
           </Sider>
           <Layout style={{ padding: '24px' }}>
-            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280, height: 'calc(100vh - 112px)' }}>
-              <MainTab />
+            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>
+              <MainTab { ...tabProps }/>
             </Content>
           </Layout>
         </Layout>
@@ -69,4 +125,8 @@ function IndexPage() {
 IndexPage.propTypes = {
 };
 
-export default connect()(IndexPage);
+function mapStateToProps({app}) {
+  return { app }
+}
+
+export default connect(mapStateToProps)(IndexPage);

@@ -18,14 +18,15 @@ export default {
 
   subscriptions: {
     setup({ dispatch, history }) {
-      history.listen(location => {
-        // location中获取上个页面传入的参数
-        if (location.pathname === '/user') {
-          dispatch({
-            type: 'query',
-            payload: {pageSize: 20, pageNum: 1}
-          });
-        }
+      // history.listen(location => {
+      //   // location中获取上个页面传入的参数
+      //   if (location.pathname === '/user') {
+      //
+      //   }
+      // });
+      dispatch({
+        type: 'query',
+        payload: {pageSize: 20, pageNum: 1}
       });
     },
   },
@@ -46,7 +47,6 @@ export default {
         }
     },
     *create({payload}, {select, put, call}){
-        console.log(payload)
         const {data} = yield call(add, payload);
         if (data.success) {
           yield put({

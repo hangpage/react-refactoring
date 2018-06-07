@@ -10,7 +10,8 @@
     "axios": "^0.18.0",
     "dva": "^2.2.3",
     "react": "^15.5.1",
-    "react-dom": "^15.5.1"
+    "react-dom": "^15.5.1",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",

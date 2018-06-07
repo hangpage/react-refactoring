@@ -11,15 +11,15 @@ const app = dva();
 
 // 3. Model
 /*
-*  一定要把model注入要app中！！！
+*  一定要把model注入要app中！！！ +2
+*  已经两次忘记注入导致浪费十分钟以上！！
 * */
 app.model(require('./models/user/UserModel.js').default);
 app.model(require('./models/login/LoginModal.js').default);
+app.model(require('./models/common/AppModel.js').default);
 
 // 4. Router
 app.router(require('./router').default);
 
-
-console.log(app)
 // 5. Start
 app.start('#root');

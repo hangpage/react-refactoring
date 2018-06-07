@@ -26,3 +26,33 @@ const App = (props) => ({});
 
 [自定义表单控件](https://ant.design/components/form-cn/#components-form-demo-customized-form-controls)
 
+
+
+Q1:
+    dva究竟是如何实现model与组件数据关联的，网上只是写了connect连接，还是不懂
+    
+    刚在routes/user/index中将users打印出来，发现是UserModel中的state数据，是不是只要注册过的页面都可以访问到model的？
+    在model文档中提到过，当前model以key为namespace存在全局中。 
+    
+    mapStateToProps中第一个参数其实就是redux中的全局store，在我们userModel中通过{users}提取出usersmodel中的state与User组件进行了绑定！
+
+
+
+
+
+
+    [Connect详解](https://blog.csdn.net/u010977147/article/details/53412381)
+    
+    connect方法声明如下：
+    connect([mapStateToProps], [mapDispatchToProps], [mergeProps],[options])  
+    
+    作用：连接 React 组件与 Redux store。 
+    连接操作不会改变原来的组件类，反而返回一个新的已与 Redux store 连接的组件类。 
+    
+    返回值
+    根据配置信息，返回一个注入了 state 和 action creator 的 React 组件。
+    
+    作者：李斌
+    [链接：https://zhuanlan.zhihu.com/p/30671973](https://zhuanlan.zhihu.com/p/30671973)
+    来源：知乎
+    著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

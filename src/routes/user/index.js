@@ -124,17 +124,6 @@ function mapStateToProps({users}) {
   return {users};
 }
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onTodoClick: id => {
-//       dispatch(toggleTodo(id))
-//     },
-//     onDeleteConfirm: id => {
-//       dispatch()
-//     }
-//   }
-// }
-
 
 // 建立数据关联关系
 //connect方法做的事情是将state和dispatch绑定到Connect组件的参数上,
