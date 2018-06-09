@@ -37,6 +37,7 @@ function Users({location, dispatch, users}) {
     ],
     pageSize: 20,
     pageNum: current,
+    currentItem: currentItem,
     onSearch(params) {
       dispatch({
         type: 'users/query',
@@ -47,7 +48,7 @@ function Users({location, dispatch, users}) {
       dispatch({
         type: 'users/showModal',
         payload: {
-          modalType: 'creat',
+          modalType: 'create',
         }
       })
     }
@@ -59,6 +60,7 @@ function Users({location, dispatch, users}) {
     current,
     modalVisible,
     modalType,
+    currentItem,
     pageSize: pageSize || 20,
     size: 'small',
     onComfirmClick(id) {
@@ -71,11 +73,13 @@ function Users({location, dispatch, users}) {
         handleRefresh()
       })
     },
-    onEditClick(id) {
+    onEditClick(record) {
+      console.log(record)
       dispatch({
         type: 'users/showModal',
         payload: {
-          modalType: 'update'
+          modalType: 'update',
+          currentItem: record
         }
       })
     },
@@ -85,6 +89,7 @@ function Users({location, dispatch, users}) {
       })
     },
     onModalOkClick(params) {
+      console.log(params)
       dispatch({
         type: 'users/create',
         payload: params

@@ -52,7 +52,7 @@ function IndexPage({location, dispatch, app}) {
       key: '2',
       content: <User />
     }
-    
+
     if(_.find(panes, {key: item.key})){
         return false;
     }

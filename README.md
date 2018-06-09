@@ -27,6 +27,9 @@ const App = (props) => ({});
 [自定义表单控件](https://ant.design/components/form-cn/#components-form-demo-customized-form-controls)
 
 
+datepicker 需要是[moment](http://momentjs.cn/docs/#/parsing/now/)类型的
+
+
 
 Q1:
     dva究竟是如何实现model与组件数据关联的，网上只是写了connect连接，还是不懂

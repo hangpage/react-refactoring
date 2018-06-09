@@ -77,7 +77,7 @@ export default {
       return { ...state, loading: true }
     },
     showModal(state, action){
-      return { ...state, modalVisible: true, modalType: action.payload.modalType }
+      return { ...state, modalVisible: true, currentItem: action.payload.currentItem, modalType: action.payload.modalType }
     },
     hideModal(state){
       return { ...state, modalVisible: false }

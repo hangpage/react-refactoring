@@ -11,7 +11,8 @@
     "dva": "^2.2.3",
     "react": "^15.5.1",
     "react-dom": "^15.5.1",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "moment": "^2.22.2"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",

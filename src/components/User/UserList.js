@@ -7,6 +7,7 @@ import styles from '../../index.less';
 const UserList = ({
                     total,
                     current,
+                    currentItem,
                     loading,
                     pageSize,
                     size,
@@ -22,6 +23,10 @@ const UserList = ({
 
   const handleConfirmClick = (record, e) => {
     onComfirmClick(record.id);
+  }
+
+  const handleEditClick = (record, e) => {
+    onEditClick(record, e)
   }
 
 
@@ -62,7 +67,7 @@ const UserList = ({
     key: 'operation',
     render: (text, record) => (
       <p>
-        <a onClick={onEditClick}>编辑</a>
+        <a onClick={e => handleEditClick(record, e)}>编辑</a>
         &nbsp;
         <Popconfirm title="确定要删除吗？" onConfirm={e => handleConfirmClick(record, e)} cancelText="取消">
           <a>删除</a>
@@ -77,6 +82,16 @@ const UserList = ({
     pageSize,
     onChange: onPageChange,
   };
+
+  const dialogProps = {
+    currentItem: modalType === 'create' ? {} : currentItem,
+    modalVisible,
+    onModalOkClick,
+    onModalCancelClick,
+    modalType,
+  }
+
+
   return (
     <div>
       <Table
@@ -89,7 +104,7 @@ const UserList = ({
         size={size}
         className={styles.mt10}
       />
-      <Dialog modalVisible={modalVisible} onModalOkClick={onModalOkClick} onModalCancelClick={onModalCancelClick} modalType={modalType} />
+      <Dialog {...dialogProps} />
     </div>
   )
 }
