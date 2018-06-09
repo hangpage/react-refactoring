@@ -30,6 +30,8 @@ const App = (props) => ({});
 datepicker 需要是[moment](http://momentjs.cn/docs/#/parsing/now/)类型的
 
 
+[Connect详解](https://blog.csdn.net/u010977147/article/details/53412381)
+
 
 Q1:
     dva究竟是如何实现model与组件数据关联的，网上只是写了connect连接，还是不懂
@@ -44,7 +46,7 @@ Q1:
 
 
 
-    [Connect详解](https://blog.csdn.net/u010977147/article/details/53412381)
+    
     
     connect方法声明如下：
     connect([mapStateToProps], [mapDispatchToProps], [mergeProps],[options])  
