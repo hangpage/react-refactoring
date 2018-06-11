@@ -1,4 +1,4 @@
-import {query, del, add} from '../../services/users/user'
+import { query, del, add } from '../../services/users/UserServuce'
 import { message } from 'antd';
 
 export default {

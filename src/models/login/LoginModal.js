@@ -1,4 +1,4 @@
-import {login} from '../../services/login/login'
+import {loginService} from '../../services/login/LoginService'
 import { routerRedux } from 'dva/router'
 import { message } from 'antd';
 
@@ -20,7 +20,7 @@ export default {
   effects: {
      *login({payload}, {select, put, call}){
       yield put({ type: 'showLoading' });
-      const {data} = yield call(login, payload);
+      const {data} = yield call(loginService, payload);
       if (data.success) {
           message.info(data.msg);
           yield put(routerRedux.push({
