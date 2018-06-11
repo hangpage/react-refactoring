@@ -1,4 +1,4 @@
-import { query, del, add } from '../../services/users/UserServuce'
+import { query, del, add } from '../../services/users/UserService'
 import { message } from 'antd';
 
 export default {
@@ -28,6 +28,9 @@ export default {
         type: 'query',
         payload: {pageSize: 20, pageNum: 1}
       });
+      dispatch({
+        type: 'menu/query'
+      })
     },
   },
 

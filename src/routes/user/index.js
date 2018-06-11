@@ -4,6 +4,8 @@ import {connect} from 'dva';
 import UserList from '../../components/User/UserList';
 import UserSearch from '../../components/User/UserSearch';
 import dict from '../../utils/dictionary'
+import {queryMmeberLevel} from "../../services/dictionary/DictionaryService";
+
 
 function Users({location, dispatch, users}) {
   const {
@@ -21,15 +23,14 @@ function Users({location, dispatch, users}) {
     })
   }
 
-
   const userSearchProps = {
     queryFieldList: [
       {field: 'name', text: '姓名', defaultValue: ''},
       {field: 'mobile', text: '手机号', defaultValue: ''},
-      {field: 'identityType', text: '证件类型', type: 'combobox', datasource: dict.activityStatus, defaultValue: ''},
+      {field: 'identityType', text: '证件类型', type: 'select', datasource: dict.activityStatus, defaultValue: ''},
       {field: 'identityCode', text: '证件号码', defaultValue: ''},
       {field: 'archivesNo', text: '档案号', defaultValue: ''},
-      {field: 'memberLevel', text: '会员卡级别', defaultValue: ''},
+      {field: 'memberLevel', text: '会员卡级别', type: 'select',  dataservice: queryMmeberLevel, defaultValue: ''},
       {field: 'cardStatus', text: '会员卡状态', defaultValue: ''},
       {field: 'memberCardNum', text: '会员卡号', defaultValue: ''},
       {field: 'profileLocation', text: '门店', defaultValue: ''},

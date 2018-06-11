@@ -33,8 +33,16 @@ class AdvancedSearchForm extends React.Component {
     const children = [];
     const fieldList = this.props.queryFieldList;
     for (let i = 0; i < fieldList.length; i++) {
-      if(fieldList[i].type === 'combobox'){
-        const options = fieldList[i].datasource.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
+      if(fieldList[i].type === 'select'){
+        let options = [];
+        if(fieldList[i].datasource){
+          options = fieldList[i].datasource.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
+        }else{
+          fieldList[i].dataservice().then(({data}) => {
+            options = data.data;
+            //console.log(options)
+          })
+        }
         children.push(
           <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
             <FormItem label={`${fieldList[i].text}`}>
