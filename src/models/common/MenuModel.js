@@ -23,7 +23,7 @@ export default {
         yield put({
           type: 'querySuccess',
           payload: {
-            menus: data.data
+            menus: data.data,
           }
         });
       }
@@ -36,6 +36,9 @@ export default {
     },
     onMenuItemClick(state, action){
       return {...state, ...action.payload};
+    },
+    changeCurrentMenuItemChildren(state, action){
+      return {...state, ...action.payload}
     }
   },
 

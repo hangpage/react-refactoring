@@ -10,8 +10,24 @@ const Menus = ({currentMenuItemChildren}) => {
   console.log(currentMenuItemChildren)
 
 
-  //TODO 递归处理
-  const itemList = currentMenuItemChildren && currentMenuItemChildren.map(item => <SubMenu key={item.id} title={<span><Icon type="user" />{item.name}</span>}>{item.children && item.children.map(child => <Menu.Item key={child.id}></Menu.Item>)}</SubMenu>);
+  //递归处理菜单
+  const getMenus = (tree) => {
+    return tree.map((item) => {
+      if(item.children){
+        return (
+          <SubMenu key={item.id} title={<span><Icon type="user" />{item.name}</span>}>
+            {getMenus(item.children)}
+          </SubMenu>
+        )
+      }
+      return(
+        <Menu.Item key={item.id}>{item.name}</Menu.Item>
+      )
+    })
+  }
+
+  const menuItems = getMenus(currentMenuItemChildren);
+
   return(
     <div>
       <Menu
@@ -20,7 +36,7 @@ const Menus = ({currentMenuItemChildren}) => {
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
       >
-        {itemList}
+        {menuItems}
       </Menu>
     </div>
   )
