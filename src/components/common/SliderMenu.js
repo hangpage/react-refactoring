@@ -6,9 +6,7 @@ import _ from 'lodash';
 import  { arrayToTree } from '../../utils/index';
 const { SubMenu } = Menu;
 
-const Menus = ({currentMenuItemChildren}) => {
-  console.log(currentMenuItemChildren)
-
+const Menus = ({currentMenuItemChildren, onSiderMenuItemClick}) => {
 
   //递归处理菜单
   const getMenus = (tree) => {
@@ -35,20 +33,12 @@ const Menus = ({currentMenuItemChildren}) => {
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
+        onClick={onSiderMenuItemClick}
       >
         {menuItems}
       </Menu>
     </div>
   )
-}
-
-
-function mapStateToProps({menu}) {
-  //TODO 这里只return currentMenuItemChild的话 上面Menus在哪里取呢？
-  // 只返回相对应的currentMenuItemChild相当于只给组件注入一个props也就是一个参数，这样就可以直接在上面的组件中取到这个参数
-  return {
-    currentMenuItemChildren: menu.currentMenuItemChildren
-  };
 }
 
 

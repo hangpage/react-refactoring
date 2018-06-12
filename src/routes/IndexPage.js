@@ -1,15 +1,16 @@
 import React from 'react';
-import { connect } from 'dva';
+import {connect} from 'dva';
 import _ from 'lodash';
-import { Link } from 'dva/router';
+import {Link} from 'dva/router';
 import styles from './IndexPage.css';
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import {Layout, Menu, Breadcrumb, Icon} from 'antd';
 import MainTab from '../components/common/MainTab'
-import User from './user';
-import Menus from '../components/common/Menu';
+import HeaderMenu from '../components/common/HeaderMenu';
 import SliderMenu from '../components/common/SliderMenu';
-const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout;
+import Components from './index';
+
+const {SubMenu} = Menu;
+const {Header, Content, Footer, Sider} = Layout;
 
 
 function IndexPage({location, dispatch, app}) {
@@ -27,13 +28,13 @@ function IndexPage({location, dispatch, app}) {
     panes: panes,
     newTabIndex: newTabIndex,
     activeKey: activeKey,
-    addTab(){
+    addTab() {
       dispatch({
         type: 'app/addTab',
       })
     },
 
-    removeTab(targetKey){
+    removeTab(targetKey) {
       dispatch({
         type: 'app/removeTab',
         payload: {
@@ -41,7 +42,7 @@ function IndexPage({location, dispatch, app}) {
         }
       })
     },
-    changeTab(targetKey){
+    changeTab(targetKey) {
       dispatch({
         type: 'app/changeTab',
         payload: {
@@ -60,37 +61,35 @@ function IndexPage({location, dispatch, app}) {
     })
   }
 
-  const onMenuItemClick = (e) => {
-    const item = {
-      title: '用户列表',
-      key: '2',
-      content: <User />
+  const onSiderMenuItemClick = ({key, keyPath, item}) => {
+    const tab = {
+      title: item.props.children,
+      key: key,
+      content: Components[key]
     }
-
-    if(_.find(panes, {key: item.key})){
-        return false;
+    if (_.find(panes, {key: tab.key})) {
+      return false;
     }
-
-     dispatch({
-       type: 'app/addTab',
-       payload: item
-     })
+    dispatch({
+      type: 'app/addTab',
+      payload: tab
+    })
   }
 
   return (
     <div>
       <Layout>
         <Header className="header">
-          <div className={styles.logo} />
-          <Menus menus={menus} onHeaderMenuItemClick={onHeaderMenuItemClick}/>
+          <div className={styles.logo}/>
+          <HeaderMenu menus={menus} onHeaderMenuItemClick={onHeaderMenuItemClick}/>
         </Header>
         <Layout>
-          <Sider width={200} style={{ background: '#fff' }}>
-            <SliderMenu  menus={menus} currentMenuItemChildren={currentMenuItemChildren}/>
+          <Sider width={200} style={{background: '#fff'}}>
+            <SliderMenu currentMenuItemChildren={currentMenuItemChildren} onSiderMenuItemClick={onSiderMenuItemClick}/>
           </Sider>
-          <Layout style={{ padding: '24px' }}>
-            <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>
-              <MainTab { ...tabProps }/>
+          <Layout style={{padding: '24px'}}>
+            <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>
+              <MainTab {...tabProps}/>
             </Content>
           </Layout>
         </Layout>
@@ -99,11 +98,10 @@ function IndexPage({location, dispatch, app}) {
   );
 }
 
-IndexPage.propTypes = {
-};
+IndexPage.propTypes = {};
 
 function mapStateToProps({app}) {
-  return { app }
+  return {app}
 }
 
 export default connect(mapStateToProps)(IndexPage);

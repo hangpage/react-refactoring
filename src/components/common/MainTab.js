@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'dva';
-import { Tabs, Button } from 'antd';
+import { Tabs } from 'antd';
 const TabPane = Tabs.TabPane;
-
 
 
 class MainTab extends React.Component {
@@ -17,9 +15,6 @@ class MainTab extends React.Component {
   render() {
     return (
       <div>
-        <div style={{ marginBottom: 16 }}>
-          <Button onClick={this.props.addTab}>新增页签</Button>
-        </div>
         <Tabs
           hideAdd
           onChange={this.props.changeTab}
@@ -35,4 +30,4 @@ class MainTab extends React.Component {
 }
 
 
-export default connect()(MainTab);
+export default MainTab;

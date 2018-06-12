@@ -5,9 +5,10 @@
  *
  */
 import _ from 'lodash';
-import UserPage from '../../routes/user'
-import { menuService } from '../../services/app/MenuService'
-import {arrayToTree} from "../../utils";
+import UserPage from '../../routes/user';
+import { menuService } from '../../services/app/MenuService';
+import { arrayToTree } from "../../utils";
+import LybCalendar from "../../routes/indexpage/index";
 
 
 export default {
@@ -17,7 +18,7 @@ export default {
   state: {
     newTabIndex: 0,
     panes: [
-      { title: '首页', content: <UserPage />, key: '1', closable: false },
+      { title: '首页', content: <LybCalendar />, key: '1', closable: false },
     ],
     activeKey: '1',
     menus: [],
@@ -54,7 +55,7 @@ export default {
     addTab(state, action){
       const panes = state.panes;
       const activeKey = action.payload.key || `newTab${state.newTabIndex++}`;
-      panes.push({ title: action.payload.title || '新页签', content: action.payload.content || '新标签', key: activeKey });
+      panes.push({ title: action.payload.title || '新页签', content: action.payload.content || action.payload.title, key: activeKey });
       return { ...state, activeKey: activeKey, panes: panes};
     },
     changeTab(state, action){
