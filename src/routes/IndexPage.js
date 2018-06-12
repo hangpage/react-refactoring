@@ -17,7 +17,10 @@ function IndexPage({location, dispatch, app}) {
   const {
     panes,
     newTabIndex,
-    activeKey
+    activeKey,
+    menus,
+    currentMenuItemChildren,
+    menuTreeData
   } = app;
 
   const tabProps = {
@@ -48,6 +51,15 @@ function IndexPage({location, dispatch, app}) {
     }
   }
 
+  const onHeaderMenuItemClick = ({item, key, keyPath}) => {
+    dispatch({
+      type: 'app/onMenuItemClick',
+      payload: {
+        currentMenuItemChildren: _.find(menuTreeData, {id: key}).children || []
+      }
+    })
+  }
+
   const onMenuItemClick = (e) => {
     const item = {
       title: '用户列表',
@@ -70,11 +82,11 @@ function IndexPage({location, dispatch, app}) {
       <Layout>
         <Header className="header">
           <div className={styles.logo} />
-          <Menus />
+          <Menus menus={menus} onHeaderMenuItemClick={onHeaderMenuItemClick}/>
         </Header>
         <Layout>
           <Sider width={200} style={{ background: '#fff' }}>
-            <SliderMenu />
+            <SliderMenu  menus={menus} currentMenuItemChildren={currentMenuItemChildren}/>
           </Sider>
           <Layout style={{ padding: '24px' }}>
             <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>

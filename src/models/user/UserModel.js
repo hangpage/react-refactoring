@@ -28,9 +28,6 @@ export default {
         type: 'query',
         payload: {pageSize: 20, pageNum: 1}
       });
-      dispatch({
-        type: 'menu/query'
-      })
     },
   },
 

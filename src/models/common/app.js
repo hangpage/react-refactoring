@@ -4,9 +4,10 @@
  * @description：全局model,包括tab panes
  *
  */
-
+import _ from 'lodash';
 import UserPage from '../../routes/user'
-
+import { menuService } from '../../services/app/MenuService'
+import {arrayToTree} from "../../utils";
 
 
 export default {
@@ -18,17 +19,34 @@ export default {
     panes: [
       { title: '首页', content: <UserPage />, key: '1', closable: false },
     ],
-    activeKey: '1'
+    activeKey: '1',
+    menus: [],
+    menuTreeData: [],
+    mode: 'horizontal',
+    theme: 'dark',
+    defaultSelectedKeys: ['1'],
+    currentMenuItemChildren: []
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
+      dispatch({
+        type: 'query'
+      })
     },
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
-      yield put({ type: 'save' });
+    *query({payload}, {call, put}) {  // eslint-disable-line
+      const {data} = yield call(menuService, payload);
+      if (data.success) {
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            menus: data.data,
+          }
+        });
+      }
     },
   },
 
@@ -55,7 +73,15 @@ export default {
           activeKey = panes[lastIndex].key;
         }
         return {...state, activeKey: activeKey, panes: panes }
-    }
+    },
+    querySuccess(state, action) {
+      const menuTreeData = arrayToTree(action.payload.menus.filter(_ => _.resourceType !== 'b'), 'id', 'parentId');
+      const currentMenuItemChildren = menuTreeData[0].children || [];
+      return {...state, ...action.payload, menuTreeData: menuTreeData, currentMenuItemChildren: currentMenuItemChildren};
+    },
+    onMenuItemClick(state, action){
+      return {...state, ...action.payload};
+    },
   },
 
 };

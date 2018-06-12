@@ -52,4 +52,4 @@ function mapStateToProps({menu}) {
 }
 
 
-export default connect(mapStateToProps)(Menus);;
+export default Menus;
