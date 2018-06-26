@@ -68,12 +68,18 @@ function IndexPage({location, dispatch, app}) {
       content: Components[key]
     }
     if (_.find(panes, {key: tab.key})) {
-      return false;
+      dispatch({
+        type: 'app/changeTab',
+        payload: {
+          targetKey: tab.key
+        }
+      })
+    } else {
+      dispatch({
+        type: 'app/addTab',
+        payload: tab
+      })
     }
-    dispatch({
-      type: 'app/addTab',
-      payload: tab
-    })
   }
 
   return (

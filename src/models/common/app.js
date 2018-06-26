@@ -5,7 +5,6 @@
  *
  */
 import _ from 'lodash';
-import UserPage from '../../routes/user';
 import { menuService } from '../../services/app/MenuService';
 import { arrayToTree } from "../../utils";
 import LybCalendar from "../../routes/indexpage/index";

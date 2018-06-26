@@ -75,7 +75,6 @@ function Users({location, dispatch, users}) {
       })
     },
     onEditClick(record) {
-      console.log(record)
       dispatch({
         type: 'users/showModal',
         payload: {
