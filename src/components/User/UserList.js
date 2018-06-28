@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Table, Popconfirm} from 'antd';
 import Dialog from './Modal';
+import DataTable from '../common/DataTable';
 import styles from '../../index.less';
 
 const UserList = ({
@@ -10,7 +11,6 @@ const UserList = ({
                     currentItem,
                     loading,
                     pageSize,
-                    size,
                     dataSource,
                     onComfirmClick,
                     onEditClick,
@@ -76,12 +76,7 @@ const UserList = ({
     ),
   }];
   //定义分页对象
-  const pagination = {
-    total,
-    current,
-    pageSize,
-    onChange: onPageChange,
-  };
+
 
   const dialogProps = {
     currentItem: modalType === 'create' ? {} : currentItem,
@@ -94,15 +89,9 @@ const UserList = ({
 
   return (
     <div>
-      <Table
+      <DataTable
         columns={columns}
-        dataSource={dataSource}
-        locale={{emptyText: '暂无数据'}}
-        loading={loading}
-        rowKey={record => record.id}
-        pagination={pagination}
-        size={size}
-        className={styles.mt10}
+        url="/api/member/info/list"
       />
       <Dialog {...dialogProps} />
     </div>
