@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types'
 import { Menu, Icon } from 'antd'
 import { connect } from 'dva';
+import { Link } from 'dva/router'
 import _ from 'lodash';
 import  { arrayToTree } from '../../utils/index';
 const { SubMenu } = Menu;
@@ -18,8 +19,13 @@ const Menus = ({currentMenuItemChildren, onSiderMenuItemClick}) => {
           </SubMenu>
         )
       }
+      item.url = '/user';
       return(
-        <Menu.Item key={item.id}>{item.name}</Menu.Item>
+        <Menu.Item key={item.id}>
+          <Link to={item.url}>
+            {item.name}
+          </Link>
+        </Menu.Item>
       )
     })
   }

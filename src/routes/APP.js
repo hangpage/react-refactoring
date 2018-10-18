@@ -13,7 +13,7 @@ const {SubMenu} = Menu;
 const {Header, Content, Footer, Sider} = Layout;
 
 
-function IndexPage({location, dispatch, app}) {
+function APP({children, location, dispatch, app}) {
 
   const {
     panes,
@@ -82,6 +82,7 @@ function IndexPage({location, dispatch, app}) {
     }
   }
 
+
   return (
     <div>
       <Layout>
@@ -95,7 +96,8 @@ function IndexPage({location, dispatch, app}) {
           </Sider>
           <Layout style={{padding: '24px'}}>
             <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>
-              <MainTab {...tabProps}/>
+              {/*<MainTab {...tabProps}/>*/}
+              {children}
             </Content>
           </Layout>
         </Layout>
@@ -104,10 +106,10 @@ function IndexPage({location, dispatch, app}) {
   );
 }
 
-IndexPage.propTypes = {};
+APP.propTypes = {};
 
 function mapStateToProps({app}) {
   return {app}
 }
 
-export default connect(mapStateToProps)(IndexPage);
+export default connect(mapStateToProps)(APP);

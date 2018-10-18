@@ -7,9 +7,9 @@ import dict from '../../utils/dictionary'
 import {queryMmeberLevel} from "../../services/dictionary/DictionaryService";
 
 
-function Users({location, dispatch, users}) {
+function Users({location, dispatch, users, loading}) {
   const {
-    loading, list, total, current,
+    list, total, current,
     currentItem, modalVisible, modalType, pageSize, pageNum
   } = users;
 
@@ -22,6 +22,8 @@ function Users({location, dispatch, users}) {
       }
     })
   }
+
+  const isLoading = loading.effects['users/query']
 
   const userSearchProps = {
     queryFieldList: [
@@ -57,7 +59,7 @@ function Users({location, dispatch, users}) {
   const userListProps = {
     dataSource: list,
     total,
-    loading,
+    loading: isLoading,
     current,
     modalVisible,
     modalType,
@@ -125,8 +127,8 @@ Users.propTypes = {};
 
 // 指定订阅数据，这里关联了 users
 //使用 connect() 前，需要先定义 mapStateToProps 这个函数来指定如何把当前 Redux store state 映射到展示组件的 props 中
-function mapStateToProps({users}) {
-  return {users};
+function mapStateToProps({users, loading}) {
+  return {users, loading};
 }
 
 

@@ -7,7 +7,6 @@ export default {
   state: {
       list: [],
       total: null,
-      loading: false, // 控制加载状态
       current: null, // 当前分页信息
       pageSize: 20,
       currentItem: {}, // 当前操作的用户对象
@@ -73,7 +72,7 @@ export default {
   reducers: {
     //reducer 接收参数 state 和 action，返回新的 state，通过语句表达即 (state, action) => newState
     showLoading(state, action){
-      return { ...state, loading: true }
+      return { ...state }
     },
     showModal(state, action){
       return { ...state, modalVisible: true, currentItem: action.payload.currentItem, modalType: action.payload.modalType }
@@ -82,16 +81,16 @@ export default {
       return { ...state, modalVisible: false }
     },
     querySuccess(state, action){
-      return { ...state, ...action.payload, loading: false };
+      return { ...state, ...action.payload};
     },
     handPageClick(state, action){
       return { ...state, current: action.payload.current, pageNum: action.payload.current }
     },
     createSuccess(state, action){
-      return { ...state, loading: false }
+      return { ...state}
     },
     deleteSuccess(state, action){
-      return { ...state, loading: false }
+      return { ...state}
     },
     updateSuccess(){},
   },
