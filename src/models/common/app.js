@@ -23,7 +23,7 @@ export default {
     menus: [],
     menuTreeData: [],
     mode: 'horizontal',
-    theme: 'dark',
+    theme: 'light',
     defaultSelectedKeys: ['1'],
     currentMenuItemChildren: []
   },
@@ -37,7 +37,7 @@ export default {
   },
 
   effects: {
-    *query({payload}, {call, put}) {  // eslint-disable-line
+    *query({payload}, {call, put}) {
       const {data} = yield call(menuService, payload);
       if (data.success) {
         yield put({
@@ -82,6 +82,9 @@ export default {
     onMenuItemClick(state, action){
       return {...state, ...action.payload};
     },
+    changeTheme(state, action){
+      return {... state, ...action.payload};
+    }
   },
 
 };

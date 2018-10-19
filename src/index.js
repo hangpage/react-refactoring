@@ -11,11 +11,14 @@ const history = createHistory({
 
 
 // 1. Initialize
-// const app = dva({
-//   history: history
-// });
 
-const app = dva();
+//暂时使用browseHistory hash一直warning很烦
+//TODO 直接刷新浏览器会报错， 会将页面路由当成请求发送 稍后处理 先撸代码
+const app = dva({
+  history: history
+});
+
+// const app = dva();
 
 // 2. Plugins
 app.use(createLoading());

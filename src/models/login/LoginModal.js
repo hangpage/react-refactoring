@@ -24,7 +24,7 @@ export default {
       if (data.success) {
           message.info(data.msg);
           yield put(routerRedux.push({
-              pathname: '/user',
+              pathname: '/',
               state: {
                 params: 2222222
               }

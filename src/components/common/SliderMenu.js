@@ -7,7 +7,7 @@ import _ from 'lodash';
 import  { arrayToTree } from '../../utils/index';
 const { SubMenu } = Menu;
 
-const Menus = ({currentMenuItemChildren, onSiderMenuItemClick}) => {
+const SlideMenu = ({currentMenuItemChildren, onSiderMenuItemClick, changeTheme, theme}) => {
 
   //递归处理菜单
   const getMenus = (tree) => {
@@ -19,10 +19,10 @@ const Menus = ({currentMenuItemChildren, onSiderMenuItemClick}) => {
           </SubMenu>
         )
       }
-      item.url = '/user';
       return(
         <Menu.Item key={item.id}>
           <Link to={item.url}>
+            {item.icon ? <Icon type={item.icon} /> : <Icon type="meh" />}
             {item.name}
           </Link>
         </Menu.Item>
@@ -40,6 +40,7 @@ const Menus = ({currentMenuItemChildren, onSiderMenuItemClick}) => {
         defaultOpenKeys={['sub1']}
         style={{ height: '100%', borderRight: 0 }}
         onClick={onSiderMenuItemClick}
+        theme={theme}
       >
         {menuItems}
       </Menu>
@@ -48,4 +49,4 @@ const Menus = ({currentMenuItemChildren, onSiderMenuItemClick}) => {
 }
 
 
-export default Menus;
+export default SlideMenu;

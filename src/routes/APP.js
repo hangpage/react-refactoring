@@ -3,12 +3,14 @@ import {connect} from 'dva';
 import _ from 'lodash';
 import {Link} from 'dva/router';
 import styles from './IndexPage.css';
-import {Layout, Menu, Breadcrumb, Icon} from 'antd';
+import {Layout, Menu, Breadcrumb, Icon, Tabs, Switch} from 'antd';
 import MainTab from '../components/common/MainTab'
 import HeaderMenu from '../components/common/HeaderMenu';
 import SliderMenu from '../components/common/SliderMenu';
 import Components from './index';
 
+
+const TabPane = Tabs.TabPane;
 const {SubMenu} = Menu;
 const {Header, Content, Footer, Sider} = Layout;
 
@@ -21,7 +23,8 @@ function APP({children, location, dispatch, app}) {
     activeKey,
     menus,
     currentMenuItemChildren,
-    menuTreeData
+    menuTreeData,
+    theme
   } = app;
 
   const tabProps = {
@@ -61,6 +64,15 @@ function APP({children, location, dispatch, app}) {
     })
   }
 
+  const changeTheme = (value) => {
+    dispatch({
+      type: 'app/changeTheme',
+      payload: {
+        theme: value ? 'light' : 'dark'
+      }
+    })
+  }
+
   const onSiderMenuItemClick = ({key, keyPath, item}) => {
     const tab = {
       title: item.props.children,
@@ -82,7 +94,22 @@ function APP({children, location, dispatch, app}) {
     }
   }
 
+  const onEdit = (targetKey, action) => {
+    if(action === 'remove'){
+        tabProps.removeTab(targetKey);
+    }
+  }
 
+  const renderTabBar = (pane) => {
+    console.log(pane)
+    return (
+      <Link to="/">
+        很棒
+      </Link>
+    )
+  }
+
+  //TODO use renderTabBar to create Link to update current pane
   return (
     <div>
       <Layout>
@@ -92,12 +119,21 @@ function APP({children, location, dispatch, app}) {
         </Header>
         <Layout>
           <Sider width={200} style={{background: '#fff'}}>
-            <SliderMenu currentMenuItemChildren={currentMenuItemChildren} onSiderMenuItemClick={onSiderMenuItemClick}/>
+            <SliderMenu currentMenuItemChildren={currentMenuItemChildren} onSiderMenuItemClick={onSiderMenuItemClick} theme={theme}/>
+            <Switch onChange={changeTheme} checkedChildren="黑" unCheckedChildren="白" defaultChecked/>
           </Sider>
           <Layout style={{padding: '24px'}}>
             <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>
               {/*<MainTab {...tabProps}/>*/}
-              {children}
+              <Tabs
+                hideAdd
+                onChange={tabProps.changeTab}
+                activeKey={tabProps.activeKey}
+                type="editable-card"
+                onEdit={onEdit}
+              >
+                { panes.map(pane => <TabPane tab={pane.title} key={pane.key} closable={pane.closable} renderTabBar={renderTabBar(pane)}>{children}</TabPane>) }
+              </Tabs>
             </Content>
           </Layout>
         </Layout>

@@ -18,7 +18,7 @@ export default {
     setup({ dispatch, history }) {
       history.listen(location => {
         // location中获取上个页面传入的参数
-        if (location.pathname === '/user') {
+        if (location.pathname === '/html/member/info/main.html') {
             dispatch({
               type: 'query',
               payload: location.query || {pageSize: 20, pageNum: 1}
