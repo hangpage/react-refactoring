@@ -91,7 +91,7 @@ const UserList = ({
     <div>
       <DataTable
         columns={columns}
-        url="/api/member/info/list"
+        dataSource={dataSource}
       />
       <Dialog {...dialogProps} />
     </div>

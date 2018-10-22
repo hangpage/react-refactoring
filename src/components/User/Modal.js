@@ -19,19 +19,11 @@ import {
 import dict from '../../utils/dictionary'
 import moment from 'moment';
 import pinyinUtil from 'ipinyinjs';
-import { queryMmeberLevel } from '../../services/dictionary/DictionaryService'
 import styles from '../../index.less'
-
 
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
 const FormItem = Form.Item;
-
-var memberLevelOptions = [];
-
-queryMmeberLevel().then(({data}) => {
-  memberLevelOptions = data.data.map(item => <Select.Option key={item.id} value={item.id}>{item.levelName}</Select.Option>)
-})
 
 const Dialog = ({
                   onModalOkClick,
@@ -65,6 +57,7 @@ const Dialog = ({
   }
 
   const genderOptions = dict.sex.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
+  const memberLevelOptions = dict.memberLevelData.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
 
   return (
     <Modal

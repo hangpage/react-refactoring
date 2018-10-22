@@ -101,7 +101,6 @@ function APP({children, location, dispatch, app}) {
   }
 
   const renderTabBar = (pane) => {
-    console.log(pane)
     return (
       <Link to="/">
         很棒
@@ -132,7 +131,10 @@ function APP({children, location, dispatch, app}) {
                 type="editable-card"
                 onEdit={onEdit}
               >
-                { panes.map(pane => <TabPane tab={pane.title} key={pane.key} closable={pane.closable} renderTabBar={renderTabBar(pane)}>{children}</TabPane>) }
+                {/*
+                  提取children
+                */}
+                { panes.map(pane => <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{children}</TabPane>) }
               </Tabs>
             </Content>
           </Layout>

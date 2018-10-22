@@ -22,19 +22,27 @@ class DataTable extends React.Component {
   }
 
   componentDidMount () {
+    //TODO 根据是否带有url来判断是否自动加载表格数据
     if (this.props.url) {
       this.fetch()
     }
   }
 
   onPageChange = (pagination, filters, sorter) => {
+    // this.setState({
+    //   pagination: {
+    //     pageNum: pagination.current,
+    //     pageSize: pagination.pageSize
+    //   }
+    // }, () => {
+    //   this.fetch()
+    // })
+
     this.setState({
       pagination: {
         pageNum: pagination.current,
         pageSize: pagination.pageSize
       }
-    }, () => {
-      this.fetch()
     })
   }
 
@@ -58,8 +66,9 @@ class DataTable extends React.Component {
   }
 
   render () {
-    const { loading, dataSource, pagination } = this.state;
+    const { loading, pagination } = this.state;
     const { columns } = this.props;
+    const {dataSource} = this.props;
     return (
       <Table
         columns={columns}

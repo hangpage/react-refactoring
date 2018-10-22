@@ -61,3 +61,21 @@ Q1:
     [链接：https://zhuanlan.zhihu.com/p/30671973](https://zhuanlan.zhihu.com/p/30671973)
     来源：知乎
     著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+    
+    
+    
+    
+    ### 生命函数
+    
+    
+    componentWillReceiveProps
+    
+    当props发生变化时执行，初始化render时不执行，在这个回调函数里面，你可以根据属性的变化，通过调用this.setState()来更新你的组件状态，旧的属性还是可以通过this.props来获取,这里调用更新状态是安全的，并不会触发额外的render调用
+    
+    `
+      componentWillReceiveProps: function(nextProps) {
+        this.setState({
+          likesIncreasing: nextProps.likeCount > this.props.likeCount
+        });
+      }
+    `

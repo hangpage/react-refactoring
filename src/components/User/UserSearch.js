@@ -14,7 +14,7 @@ class AdvancedSearchForm extends React.Component {
 
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.onSearch({...this.props.form.getFieldsValue(), pageSize: this.state.pageSize});
+    this.props.onSearch({...this.props.form.getFieldsValue(), pageSizedataservice: this.state.pageSize});
   }
 
   handleReset = () => {
@@ -37,11 +37,6 @@ class AdvancedSearchForm extends React.Component {
         let options = [];
         if(fieldList[i].datasource){
           options = fieldList[i].datasource.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
-        }else{
-          fieldList[i].dataservice().then(({data}) => {
-            options = data.data;
-            //console.log(options)
-          })
         }
         children.push(
           <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
