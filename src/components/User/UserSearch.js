@@ -6,7 +6,7 @@ import SearchButton from '../common/SearchButton'
 import styles from '../../index.less';
 const FormItem = Form.Item;
 
-class AdvancedSearchForm extends React.Component {
+class SearchForm extends React.Component {
   state = {
     expand: false,
     pageSize: this.props.pageSize
@@ -14,7 +14,7 @@ class AdvancedSearchForm extends React.Component {
 
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.onSearch({...this.props.form.getFieldsValue(), pageSizedataservice: this.state.pageSize});
+    this.props.onSearch({...this.props.form.getFieldsValue(), pageSize: this.state.pageSize});
   }
 
   handleReset = () => {
@@ -89,9 +89,9 @@ class AdvancedSearchForm extends React.Component {
   }
 }
 
-AdvancedSearchForm.propTypes = {
+SearchForm.propTypes = {
   onSearch: PropTypes.func
 }
 
-export default Form.create()(AdvancedSearchForm);
+export default Form.create()(SearchForm);
 

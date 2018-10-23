@@ -135,7 +135,7 @@ const Dialog = ({
               label="生日"
             >
               {getFieldDecorator('birthday', {
-                initialValue: currentItem.birthday ? moment(currentItem.birthday) : '',
+                initialValue: currentItem.birthday ? moment(currentItem.birthday) : moment(new Date()),
                 rules: [{required: true, message: '请选择生日!'}],
               })(
                 <DatePicker allowClear={true} showToday={false} placeholder=""/>

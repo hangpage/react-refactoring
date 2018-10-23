@@ -38,7 +38,8 @@ export default {
             payload: {
               list: data.data,
               total: data.total,
-              current: payload.current || 1
+              pageSize: payload.pageSize || 20,
+              current: payload.pageNum || 1
             }
           });
         }

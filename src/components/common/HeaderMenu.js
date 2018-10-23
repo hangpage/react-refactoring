@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
-import { Menu, Icon } from 'antd'
+import { Menu } from 'antd'
 import { connect } from 'dva';
 import _ from 'lodash';
 import  { arrayToTree } from '../../utils/index';

@@ -16,6 +16,10 @@ dict.sex = [{id: "M", value: "男"}, {id: "F", value: "女"}];
 dictionaryService.queryMmeberLevel().then(({data}) => {
   dict.memberLevelData = convertObjToDictObj(data.data, 'levelName');
 });
+dictionaryService.querySysDisease().then(({data}) => {
+  dict.sysDiseaseData = convertObjToDictObj(data.data, 'name');
+});
+
 
 
 

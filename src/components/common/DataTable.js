@@ -9,15 +9,9 @@ import styles from '../../index.less';
 class DataTable extends React.Component {
   constructor(props){
     super(props);
-    const pagination = props.pagination || {
-      pageNum: 1,
-      pageSize: 20,
-    };
     this.state = {
-      loading: false,
       dataSource: [],
       fetchData: {},
-      pagination,
     }
   }
 
@@ -28,23 +22,23 @@ class DataTable extends React.Component {
     }
   }
 
-  onPageChange = (pagination, filters, sorter) => {
-    // this.setState({
-    //   pagination: {
-    //     pageNum: pagination.current,
-    //     pageSize: pagination.pageSize
-    //   }
-    // }, () => {
-    //   this.fetch()
-    // })
-
-    this.setState({
-      pagination: {
-        pageNum: pagination.current,
-        pageSize: pagination.pageSize
-      }
-    })
-  }
+  // onPageChange = (pagination, filters, sorter) => {
+  //   // this.setState({
+  //   //   pagination: {
+  //   //     pageNum: pagination.current,
+  //   //     pageSize: pagination.pageSize
+  //   //   }
+  //   // }, () => {
+  //   //   this.fetch()
+  //   // })
+  //
+  //   this.setState({
+  //     pagination: {
+  //       pageNum: pagination.current,
+  //       pageSize: pagination.pageSize
+  //     }
+  //   })
+  // }
 
   fetch = () => {
     const url = this.props.url;
@@ -66,9 +60,7 @@ class DataTable extends React.Component {
   }
 
   render () {
-    const { loading, pagination } = this.state;
-    const { columns } = this.props;
-    const {dataSource} = this.props;
+    const { columns, dataSource, loading, pagination, onPageChange } = this.props;
     return (
       <Table
         columns={columns}
@@ -79,7 +71,7 @@ class DataTable extends React.Component {
         pagination={pagination}
         size="small"
         className={styles.mt10}
-        onChange={this.onPageChange}
+        onChange={onPageChange}
       />
     )
   }

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Router, Route, Switch} from 'dva/router';
-import createHistory from 'history/createBrowserHistory';
 import APP from './routes/APP';
 import Users from './routes/user';
 import Indexpage from './routes/indexpage';

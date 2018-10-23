@@ -35,9 +35,9 @@ function Users({location, dispatch, users, loading}) {
       {field: 'cardStatus', text: '会员卡状态', defaultValue: ''},
       {field: 'memberCardNum', text: '会员卡号', defaultValue: ''},
       {field: 'profileLocation', text: '门店', defaultValue: ''},
-      {field: 'firstDisease', text: '病种', defaultValue: ''},
+      {field: 'firstDisease', text: '病种', type: 'select', datasource: dict.sysDiseaseData, defaultValue: ''},
     ],
-    pageSize: 20,
+    pageSize: pageSize || 20,
     pageNum: current,
     currentItem: currentItem,
     onSearch(params) {
@@ -101,13 +101,12 @@ function Users({location, dispatch, users, loading}) {
           type: 'users/hideModal'
         })
     },
-    onPageChange(pagination, filters, sorter) {debugger
+    onPageChange(pagination, filters, sorter) {
       dispatch({
         type: 'users/query',
         payload: {
-          pageSize: 20,
-          pageNum: pagination,
-          current: pagination
+          pageSize: pagination.pageSize,
+          pageNum: pagination.current
         }
       })
     }

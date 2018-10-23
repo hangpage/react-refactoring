@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Popconfirm} from 'antd';
+import {Popconfirm} from 'antd';
 import Dialog from './Modal';
 import DataTable from '../common/DataTable';
-import styles from '../../index.less';
 
 const UserList = ({
                     total,
@@ -18,7 +17,7 @@ const UserList = ({
                     modalType,
                     onModalOkClick,
                     onModalCancelClick,
-                    onPageChange,
+                    onPageChange
                   }) => {
 
   const handleConfirmClick = (record, e) => {
@@ -78,6 +77,15 @@ const UserList = ({
   //定义分页对象
 
 
+  const pagination = {
+    pageNum: current || 1,
+    pageSize: pageSize || 20,
+    size: 'small',
+    showSizeChanger: true,
+    showQuickJumper: true,
+    total: total
+  };
+
   const dialogProps = {
     currentItem: modalType === 'create' ? {} : currentItem,
     modalVisible,
@@ -92,6 +100,9 @@ const UserList = ({
       <DataTable
         columns={columns}
         dataSource={dataSource}
+        loading={loading}
+        pagination={pagination}
+        onPageChange={onPageChange}
       />
       <Dialog {...dialogProps} />
     </div>
