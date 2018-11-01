@@ -1,21 +1,36 @@
 import React from 'react';
 import ReactDom from 'react-dom'
+import request from '../../utils/request'
 import PropTypes from 'prop-types';
 import {Select} from 'antd';
 
 const Option = Select.Option;
 
 class ComboBox extends React.Component {
-  state = {
-    identityType: ''
+  constructor(props) {
+      super(props);
+      this.state = {
+        dataSource: []
+      }
   }
+
   getOptions(options) {
     const ops = [];
+    const {value, text} = this.props;
     for (let i = 0; i < options.length; i++) {
-      const {id, value} = options[i];
-      ops.push(<Option key={i} value={id}>{value}</Option>)
+      ops.push(<Option key={i} value={options[i][value]}>{options[i][text]}</Option>)
     }
     return ops;
+  }
+
+  componentDidMount(){
+    if(this.props.url){
+        this.promise = request(this.props.url).then(({data}) => {
+          this.setState({
+            dataSource: data.data
+          })
+        })
+    }
   }
 
   handleChange = (identityType) => {
@@ -37,7 +52,7 @@ class ComboBox extends React.Component {
     return (
       <div>
         <Select defaultValue="" onChange={this.handleChange}>
-          {this.getOptions(this.props.options)}
+          {this.getOptions(this.state.dataSource)}
         </Select>
       </div>
     )

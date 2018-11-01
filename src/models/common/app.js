@@ -17,7 +17,7 @@ export default {
   state: {
     newTabIndex: 0,
     panes: [
-      { title: '首页', key: '1', closable: false },
+
     ],
     activeKey: '1',
     menus: [],

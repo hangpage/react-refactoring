@@ -124,18 +124,19 @@ function APP({children, location, dispatch, app}) {
           <Layout style={{padding: '24px'}}>
             <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>
               {/*<MainTab {...tabProps}/>*/}
-              <Tabs
-                hideAdd
-                onChange={tabProps.changeTab}
-                activeKey={tabProps.activeKey}
-                type="editable-card"
-                onEdit={onEdit}
-              >
+              {/*<Tabs*/}
+                {/*hideAdd*/}
+                {/*onChange={tabProps.changeTab}*/}
+                {/*activeKey={tabProps.activeKey}*/}
+                {/*type="editable-card"*/}
+                {/*onEdit={onEdit}*/}
+              {/*>*/}
+                {children}
                 {/*
                   提取children
                 */}
-                { panes.map(pane => <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{children}</TabPane>) }
-              </Tabs>
+                {/*{ panes.map(pane => <TabPane tab={pane.title} key={pane.key} closable={pane.closable}>{children}</TabPane>) }*/}
+              {/*</Tabs>*/}
             </Content>
           </Layout>
         </Layout>

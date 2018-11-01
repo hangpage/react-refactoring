@@ -21,12 +21,14 @@ export default {
      *login({payload}, {select, put, call}){
       yield put({ type: 'showLoading' });
       const {data} = yield call(loginService, payload);
+       console.log(data);
       if (data.success) {
+
           message.info(data.msg);
           yield put(routerRedux.push({
               pathname: '/',
               state: {
-                params: 2222222
+
               }
           }))
       }
