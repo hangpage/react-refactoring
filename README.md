@@ -6,11 +6,40 @@
 
 自定义或第三方的表单控件，也可以与 Form 组件一起使用。只要该组件遵循以下的约定：
 
-提供受控属性 value 或其它与 valuePropName 的值同名的属性。
+> 提供受控属性 value 或其它与 valuePropName 的值同名的属性。
 
-提供 onChange 事件或 trigger 的值同名的事件。
+> **提供 onChange 事件或 trigger 的值同名的事件(这样就可以同步数据给form，提交表单的时候form可以统一拿到)**。
+>[自定义组件ComboBox](https://github.com/hangpage/react-refactoring/blob/dev/src/components/common/ComboBox.js)关键代码
+  ```
+  render() {
+      return (
+        <div style={this.props.style}>
+            <Select onChange={this.handleChange}
+                    allowClear={this.props.allowClear || true}
+                    showSearch={this.props.showSearch || true}
+                    filterOption={this.filterOption}
+                    style={{width: '100%'}}
+                    dropdownMatchSelectWidth={true}>
+              {this.getOptions(this.state.dataSource)}
+            </Select>
+        </div>
+      )
+    }
+                    
+    handleChange = (value) => {
+        const onChange = this.props.onChange;
+        this.setState({
+          value: value
+        })
+        if (onChange) {
+          onChange(value);
+        }
+      }
+  
+  ```
 
-不能是函数式组件。
+
+> 不能是函数式组件。
 
 
 ### 定义组件的方式
@@ -68,10 +97,10 @@ componentWillReceiveProps
 
 当props发生变化时执行，初始化render时不执行，在这个回调函数里面，你可以根据属性的变化，通过调用this.setState()来更新你的组件状态，旧的属性还是可以通过this.props来获取,这里调用更新状态是安全的，并不会触发额外的render调用
 
-`
+```
   componentWillReceiveProps: function(nextProps) {
     this.setState({
       likesIncreasing: nextProps.likeCount > this.props.likeCount
     });
   }
-`
+```
