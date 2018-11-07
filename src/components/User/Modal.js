@@ -19,7 +19,8 @@ import {
 import dict from '../../utils/dictionary'
 import moment from 'moment';
 import pinyinUtil from 'ipinyinjs';
-import styles from '../../index.less'
+import styles from '../../index.less';
+import ComboBox from '../common/ComboBox';
 
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
@@ -57,7 +58,6 @@ const Dialog = ({
   }
 
   const genderOptions = dict.sex.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
-  const memberLevelOptions = dict.memberLevelData.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
 
   return (
     <Modal
@@ -150,9 +150,7 @@ const Dialog = ({
                 initialValue: currentItem.memberLevel,
                 rules: [{required: true, message: '请选择客人级别!'}],
               })(
-                <Select allowClear={true}>
-                  {memberLevelOptions}
-                </Select>
+                <ComboBox url='' valueProp="id" text="name"/>
               )}
             </FormItem>
           </Col>

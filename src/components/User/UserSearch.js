@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 import PropTypes from 'prop-types';
 import { Form, Row, Col, Input, Button, Icon, Select } from 'antd';
-import SearchButton from '../common/SearchButton'
+import SearchButton from '../common/SearchButton';
+import ComboBox from '../common/ComboBox';
 import styles from '../../index.less';
 const FormItem = Form.Item;
 
@@ -47,6 +48,18 @@ class SearchForm extends React.Component {
                 <Select allowClear={true}>
                   {options}
                 </Select>
+              )}
+            </FormItem>
+          </Col>
+        );
+      }else if(fieldList[i].type === 'combobox'){
+        children.push(
+          <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={`${fieldList[i].text}`}>
+              {getFieldDecorator(`${fieldList[i].field}`,{
+                initialValue: fieldList[i].defaultValue
+              })(
+                <ComboBox url={fieldList[i].url} valueProp={fieldList[i].valueProp} nameProp={fieldList[i].nameProp}/>
               )}
             </FormItem>
           </Col>

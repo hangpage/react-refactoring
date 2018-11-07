@@ -10,15 +10,15 @@ class ComboBox extends React.Component {
   constructor(props) {
       super(props);
       this.state = {
-        dataSource: []
+        dataSource: [],
       }
   }
 
   getOptions(options) {
     const ops = [];
-    const {value, text} = this.props;
+    const {valueProp, nameProp} = this.props;
     for (let i = 0; i < options.length; i++) {
-      ops.push(<Option key={i} value={options[i][value]}>{options[i][text]}</Option>)
+      ops.push(<Option key={i} value={options[i][valueProp] || options[i]['id']}>{options[i][nameProp] || options[i]['name']}</Option>)
     }
     return ops;
   }
@@ -33,32 +33,42 @@ class ComboBox extends React.Component {
     }
   }
 
-  handleChange = (identityType) => {
+  handleChange = (value) => {
+    const onChange = this.props.onChange;
     this.setState({
-      identityType
+      value: value
     })
-    this.triggerChange({identityType})
+    if (onChange) {
+      onChange(value);
+    }
   }
 
-  triggerChange = (changedValue) => {
-    // Should provide an event to pass value to Form.
-    const onChange = this.props.onChange;
-    if (onChange) {
-      onChange(Object.assign({}, this.state, changedValue));
-    }
+  filterOption = (input, option) => {
+    return option.props.children.indexOf(input) !== -1;
   }
 
   render() {
     return (
-      <div>
-        <Select defaultValue="" onChange={this.handleChange}>
-          {this.getOptions(this.state.dataSource)}
-        </Select>
+      <div style={this.props.style}>
+          <Select onChange={this.handleChange}
+                  allowClear={this.props.allowClear || true}
+                  showSearch={this.props.showSearch || true}
+                  filterOption={this.filterOption}
+                  style={{width: '100%'}}
+                  dropdownMatchSelectWidth={true}>
+            {this.getOptions(this.state.dataSource)}
+          </Select>
       </div>
     )
   }
 }
 
-ComboBox.propTypes = {}
+ComboBox.propTypes = {
+    url: PropTypes.string,
+    valueProp: PropTypes.string,
+    text: PropTypes.string,
+    allowClear: PropTypes.bool,
+    showSearch: PropTypes.bool
+}
 
 export default ComboBox;

@@ -4,6 +4,7 @@ import {connect} from 'dva';
 import UserList from '../../components/User/UserList';
 import UserSearch from '../../components/User/UserSearch';
 import dict from '../../utils/dictionary';
+import SysUrlConst from '../../utils/SysUrlConst';
 
 
 function Users({location, dispatch, users, loading}) {
@@ -22,20 +23,19 @@ function Users({location, dispatch, users, loading}) {
     })
   }
 
-  const isLoading = loading.effects['users/query'];
 
   const userSearchProps = {
     queryFieldList: [
       {field: 'name', text: '姓名', defaultValue: ''},
       {field: 'mobile', text: '手机号', defaultValue: ''},
-      {field: 'identityType', text: '证件类型', type: 'select', datasource: dict.activityStatus, defaultValue: ''},
+      {field: 'identityType', text: '证件类型', type: 'combobox', url: SysUrlConst.SYS_MEMBER_CERTIFICATE, defaultValue: ''},
       {field: 'identityCode', text: '证件号码', defaultValue: ''},
       {field: 'archivesNo', text: '档案号', defaultValue: ''},
-      {field: 'memberLevel', text: '会员卡级别', type: 'select',  datasource: dict.memberLevelData, defaultValue: ''},
-      {field: 'cardStatus', text: '会员卡状态', defaultValue: ''},
+      {field: 'memberLevel', text: '会员卡级别', type: 'combobox', url: SysUrlConst.SYS_MEMBER_LEVEL, nameProp: 'levelName', defaultValue: ''},
+      {field: 'cardStatus', text: '会员卡状态', type: 'combobox', url: SysUrlConst.SYS_MEMBER_CARD_STATUS, valueProp: 'code', nameProp: 'value', defaultValue: ''},
       {field: 'memberCardNum', text: '会员卡号', defaultValue: ''},
-      {field: 'profileLocation', text: '门店', defaultValue: ''},
-      {field: 'firstDisease', text: '病种', type: 'select', datasource: dict.sysDiseaseData, defaultValue: ''},
+      {field: 'profileLocation', text: '门店', type: 'combobox', url: SysUrlConst.SYS_HOSPITAL, defaultValue: ''},
+      {field: 'firstDisease', text: '病种', type: 'combobox', url: SysUrlConst.SYS_DISEASE, defaultValue: ''},
     ],
     pageSize: pageSize || 20,
     pageNum: current,
@@ -58,7 +58,7 @@ function Users({location, dispatch, users, loading}) {
   const userListProps = {
     dataSource: list,
     total,
-    loading: isLoading,
+    loading: loading.effects['users/query'],
     current,
     modalVisible,
     modalType,

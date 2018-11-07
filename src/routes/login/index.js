@@ -8,62 +8,75 @@ import commonStyles from '../../index.css';
 const FormItem = Form.Item;
 
 const Login = ({
-     loading,
-     dispatch,
-     form: {
-       getFieldDecorator,
-       validateFieldsAndScroll,
-     },
-   }) => {
-    function handleSubmit(){
-      validateFieldsAndScroll((errors, values) => {
-        if (errors) {
-          return
-        }
-        values.type = 'system';
-        dispatch({ type: 'login/login', payload: values })
-      })
-    }
+                 loading,
+                 dispatch,
+                 login,
+                 form: {
+                   getFieldDecorator,
+                   validateFieldsAndScroll,
+                 },
+               }) => {
+  const { remember, username, password } = login;
+  function handleSubmit() {
+    validateFieldsAndScroll((errors, values) => {
+      if (errors) {
+        return
+      }
+      values.type = 'system';
+      dispatch({type: 'login/login', payload: values})
+    })
+  }
 
-    return (
-      <div className={commonStyles.verticalCenter}>
-        <Form onSubmit={handleSubmit} className={styles.loginForm}>
-          <FormItem>
-            {getFieldDecorator('username', {
-              rules: [{ required: true, message: 'Please input your username!' }],
-            })(
-              <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="请输入手机号" />
-            )}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
-            })(
-              <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="请输入密码" />
-            )}
-          </FormItem>
-          <FormItem>
-            {getFieldDecorator('remember', {
-              valuePropName: 'checked',
-              initialValue: true,
-            })(
-              <Checkbox>Remember me</Checkbox>
-            )}
-            <a className="login-form-forgot" href="">Forgot password</a>
-            <Button type="primary" htmlType="submit" className={styles.loginFormButton}>
-              登录
-            </Button>
-            Or <a href="">register now!</a>
-          </FormItem>
-        </Form>
-      </div>
-    )
+  const onCheckBoxChange = (e) => {
+      dispatch({
+        type: 'login/onCheckBoxChange',
+        payload: {
+          remember: e.target.checked
+        }
+      })
+  }
+
+  return (
+    <div className={commonStyles.verticalCenter}>
+      <Form onSubmit={handleSubmit} className={styles.loginForm}>
+        <FormItem>
+          {getFieldDecorator('username', {
+            initialValue: username,
+            rules: [{required: true, message: '请输入手机号!'}],
+          })(
+            <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} onPressEnter={handleSubmit}
+                   placeholder="请输入手机号"/>
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('password', {
+            initialValue: password,
+            rules: [{required: true, message: '请输入密码'}],
+          })(
+            <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type="password"
+                   onPressEnter={handleSubmit} placeholder="请输入密码"/>
+          )}
+        </FormItem>
+        <FormItem>
+          {getFieldDecorator('remember', {
+            initialValue: remember,
+            valuePropName: 'remember',
+          })(
+            <Checkbox checked={remember} onChange={onCheckBoxChange}>记住密码</Checkbox>
+          )}
+          <Button type="primary" onClick={handleSubmit} className={styles.loginFormButton}
+                  loading={loading.effects.login}>
+            登录
+          </Button>
+        </FormItem>
+      </Form>
+    </div>
+  )
 }
 
 Login.propTypes = {
   form: PropTypes.object,
-  dispatch: PropTypes.func,
-  loading: PropTypes.object,
+  dispatch: PropTypes.func
 }
 
-export default connect(({ loading }) => ({ loading }))(Form.create()(Login))
+export default connect(({loading, login}) => ({loading, login}))(Form.create()(Login))

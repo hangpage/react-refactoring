@@ -16,7 +16,6 @@ class DataTable extends React.Component {
   }
 
   componentDidMount () {
-    //TODO 根据是否带有url来判断是否自动加载表格数据
     if (this.props.url) {
       this.fetch()
     }
