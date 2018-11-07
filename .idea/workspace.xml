@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5c3d729f-4bf6-45cd-b5d0-6e4643f679b5" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/utils/SysUrlConst.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/User/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/Modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/User/UserSearch.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/User/UserSearch.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/ComboBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/ComboBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/DataTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/DataTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.less" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.less" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/login/LoginModal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/login/LoginModal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/indexpage/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/indexpage/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/login/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/login/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/test/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/test/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/user/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/user/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/dictionary.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/dictionary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -54,14 +43,23 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserSearch.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserSearch.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/User/UserSearch.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+            <state relative-caret-position="-540">
+              <caret line="51" column="23" lean-forward="true" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="457">
+              <caret line="60" column="4" lean-forward="true" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -108,8 +106,8 @@
       <file leaf-file-name="ComboBox.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/common/ComboBox.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+            <state relative-caret-position="552">
+              <caret line="55" column="50" lean-forward="true" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -271,7 +269,6 @@
         <option value="$PROJECT_DIR$/src/components/common/SliderMenu.js" />
         <option value="$PROJECT_DIR$/src/mock/user.js" />
         <option value="$PROJECT_DIR$/src/services/users/UserService.js" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/components/common/SearchButton.js" />
         <option value="$PROJECT_DIR$/src/components/common/HeaderMenu.js" />
         <option value="$PROJECT_DIR$/src/services/dictionary/DictionaryService.js" />
@@ -302,6 +299,7 @@
         <option value="$PROJECT_DIR$/src/components/common/ComboBox.js" />
         <option value="$PROJECT_DIR$/src/utils/SysUrlConst.js" />
         <option value="$PROJECT_DIR$/src/routes/user/index.js" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -476,7 +474,7 @@
       <workItem from="1541126955995" duration="10018000" />
       <workItem from="1541383181324" duration="20833000" />
       <workItem from="1541468533600" duration="17228000" />
-      <workItem from="1541555540026" duration="9735000" />
+      <workItem from="1541555540026" duration="10634000" />
     </task>
     <task id="LOCAL-00001" summary="app 嵌套route 先做一版普通的，之后使用umi进行项目改进">
       <created>1539858423076</created>
@@ -489,7 +487,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="202837000" />
+    <option name="totallyTimeSpent" value="203736000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -502,27 +500,28 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12118019" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32890365" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.5021075" side_tool="true" visible="true" weight="0.5227021" />
-      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49789253" weight="0.482835" />
+      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49947312" weight="0.32890365" />
+      <window_info anchor="bottom" id="Messages" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50263435" side_tool="true" weight="0.482835" />
+      <window_info anchor="bottom" id="Version Control" order="7" sideWeight="0.49736565" weight="0.482835" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49789253" weight="0.5271318" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12118019" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32890365" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TypeScript" order="8" />
-      <window_info anchor="bottom" id="Messages" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32890365" />
     </layout>
     <layout-to-restore>
       <window_info anchor="bottom" id="Version Control" order="10" sideWeight="0.49841937" weight="0.35437432" />
@@ -598,7 +597,8 @@
     <MESSAGE value="fix bug 考虑是否集成表格page state由个人管理 通过url单独处理部分page逻辑" />
     <MESSAGE value="修改combobox 引入echarts" />
     <MESSAGE value="修改combobox组件，支持配置url, nameProp, valueProp配置数据展示方式 修改onchange方法映射值到form中" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改combobox组件，支持配置url, nameProp, valueProp配置数据展示方式 修改onchange方法映射值到form中" />
+    <MESSAGE value="update md" />
+    <option name="LAST_COMMIT_MESSAGE" value="update md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -624,13 +624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" column="37" lean-forward="true" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="681">
-          <caret line="73" column="4" lean-forward="true" selection-start-line="73" selection-start-column="4" selection-end-line="73" selection-end-column="4" />
         </state>
       </provider>
     </entry>
@@ -929,10 +922,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes/user/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="33" column="136" selection-start-line="33" selection-start-column="136" selection-end-line="33" selection-end-column="136" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/utils/dictionary.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/common/ComboBox.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+        <state relative-caret-position="552">
+          <caret line="55" column="50" lean-forward="true" selection-start-line="55" selection-start-column="50" selection-end-line="55" selection-end-column="50" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -946,30 +956,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/utils/dictionary.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes/user/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="33" column="136" selection-start-line="33" selection-start-column="136" selection-end-line="33" selection-end-column="136" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/User/UserSearch.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" column="3" lean-forward="true" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+        <state relative-caret-position="-540">
+          <caret line="51" column="23" lean-forward="true" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="60" column="4" lean-forward="true" selection-start-line="60" selection-start-column="4" selection-end-line="60" selection-end-column="4" />
         </state>
       </provider>
     </entry>
