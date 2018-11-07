@@ -3,7 +3,7 @@ import {connect} from 'dva';
 import _ from 'lodash';
 import {Link} from 'dva/router';
 import styles from './IndexPage.css';
-import {Layout, Menu, Breadcrumb, Icon, Tabs, Switch} from 'antd';
+import {Layout, Menu, Tabs, Switch} from 'antd';
 import MainTab from '../components/common/MainTab'
 import HeaderMenu from '../components/common/HeaderMenu';
 import SliderMenu from '../components/common/SliderMenu';
@@ -11,8 +11,7 @@ import Components from './index';
 
 
 const TabPane = Tabs.TabPane;
-const {SubMenu} = Menu;
-const {Header, Content, Footer, Sider} = Layout;
+const {Header, Content, Sider} = Layout;
 
 
 function APP({children, location, dispatch, app}) {

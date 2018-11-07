@@ -79,7 +79,9 @@ class DataTable extends React.Component {
 
 
 DataTable.propTypes = {
-
+  columns: PropTypes.array,
+  dataSource: PropTypes.array,
+  onChange: PropTypes.func
 }
 
 export default DataTable

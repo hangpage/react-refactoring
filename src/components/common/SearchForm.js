@@ -1,9 +1,8 @@
 import React from 'react';
-import ReactDOM  from 'react-dom';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Input, Button, Icon, Select } from 'antd';
-import SearchButton from '../common/SearchButton';
-import ComboBox from '../common/ComboBox';
+import { Form, Row, Col, Input, Button, Select, DatePicker } from 'antd';
+import SearchButton from './SearchButton';
+import ComboBox from './ComboBox';
 import styles from '../../index.less';
 const FormItem = Form.Item;
 
@@ -60,6 +59,18 @@ class SearchForm extends React.Component {
                 initialValue: fieldList[i].defaultValue
               })(
                 <ComboBox url={fieldList[i].url} valueProp={fieldList[i].valueProp} nameProp={fieldList[i].nameProp}/>
+              )}
+            </FormItem>
+          </Col>
+        );
+      }else if(fieldList[i].type === 'datepicker'){
+        children.push(
+          <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={`${fieldList[i].text}`}>
+              {getFieldDecorator(`${fieldList[i].field}`,{
+                initialValue: fieldList[i].defaultValue
+              })(
+                <DatePicker showTime format="YYYY-MM-DD" />
               )}
             </FormItem>
           </Col>

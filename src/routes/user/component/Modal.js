@@ -1,29 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
   Form,
   Input,
-  Tooltip,
-  Icon,
   Modal,
-  Cascader,
   Select,
   Row,
   Col,
-  Checkbox,
-  Button,
-  AutoComplete,
   DatePicker
 } from 'antd';
-import dict from '../../utils/dictionary'
+import dict from '../../../utils/dictionary';
+import SysUrlConst from '../../../utils/SysUrlConst';
 import moment from 'moment';
 import pinyinUtil from 'ipinyinjs';
-import styles from '../../index.less';
-import ComboBox from '../common/ComboBox';
+import ComboBox from '../../../components/common/ComboBox';
 
-const Option = Select.Option;
-const AutoCompleteOption = AutoComplete.Option;
 const FormItem = Form.Item;
 
 const Dialog = ({
@@ -150,7 +141,7 @@ const Dialog = ({
                 initialValue: currentItem.memberLevel,
                 rules: [{required: true, message: '请选择客人级别!'}],
               })(
-                <ComboBox url='' valueProp="id" text="name"/>
+                <ComboBox url={SysUrlConst.SYS_MEMBER_LEVEL} nameProp="levelName"/>
               )}
             </FormItem>
           </Col>

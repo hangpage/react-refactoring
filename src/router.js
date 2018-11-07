@@ -6,7 +6,7 @@ import Indexpage from './routes/indexpage';
 import Echarts from './routes/echarts'
 import Login from './routes/login';
 import Test from './routes/test';
-
+import Unchash from './routes/cashier/uncash';
 
 function RouterConfig({history}) {
   return (
@@ -18,6 +18,7 @@ function RouterConfig({history}) {
               <Route path="/" exact component={Indexpage}/>
               <Route path="/html/member/info/main.html" exact component={Users}/>
               <Route path="/html/member/protocol/main.html" exact component={Test}/>
+              <Route path="/html/cash/uncash/main.html" exact component={Unchash}/>
             </APP>
         </Switch>
       </div>

@@ -28,3 +28,17 @@ export function arrayToTree(array, id = 'id', pid = 'pid', children = 'children'
   })
   return result
 }
+
+/**
+ * 转换数据
+ * @param   {data}     array
+ * @param   {value}    id
+ */
+export function convertObjToDictObj(data, value) {
+  return data.map((item) => {
+    var obj = {};
+    obj.id = item.id;
+    obj.value = item[value];
+    return obj;
+  })
+}

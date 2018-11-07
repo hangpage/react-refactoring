@@ -1,13 +1,5 @@
-/**
- * @param
- * @author zhu <zzhihang@hotmail.com> 2018/6/7 15:16
- * @description：全局model,包括tab panes
- *
- */
-import _ from 'lodash';
 import { menuService } from '../../services/app/MenuService';
 import { arrayToTree } from "../../utils";
-import LybCalendar from "../../routes/indexpage/index";
 
 
 export default {
@@ -83,8 +75,7 @@ export default {
       return {...state, ...action.payload};
     },
     changeTheme(state, action){
-      return {... state, ...action.payload};
+      return {...state, ...action.payload};
     }
   },
-
 };

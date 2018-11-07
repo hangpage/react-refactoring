@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDom from 'react-dom'
 import request from '../../utils/request'
 import PropTypes from 'prop-types';
 import {Select} from 'antd';

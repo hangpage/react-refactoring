@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Popconfirm} from 'antd';
 import Dialog from './Modal';
-import DataTable from '../common/DataTable';
+import DataTable from '../../../components/common/DataTable';
 
 const UserList = ({
                     total,
@@ -109,6 +108,5 @@ const UserList = ({
   )
 }
 
-UserList.propTypes = {};
 
 export default UserList;

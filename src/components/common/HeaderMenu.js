@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { Menu } from 'antd'
-import { connect } from 'dva';
-import _ from 'lodash';
 import  { arrayToTree } from '../../utils/index';
 
 const Menus = ({menus, onHeaderMenuItemClick}) => {
@@ -24,5 +22,8 @@ const Menus = ({menus, onHeaderMenuItemClick}) => {
     )
 }
 
+Menus.propTypes = {
+  onClick: PropTypes.func
+}
 
 export default Menus;

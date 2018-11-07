@@ -1,10 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import { Menu, Icon } from 'antd'
-import { connect } from 'dva';
 import { Link } from 'dva/router'
-import _ from 'lodash';
-import  { arrayToTree } from '../../utils/index';
 const { SubMenu } = Menu;
 
 const SlideMenu = ({currentMenuItemChildren, onSiderMenuItemClick, changeTheme, theme}) => {
@@ -46,6 +43,10 @@ const SlideMenu = ({currentMenuItemChildren, onSiderMenuItemClick, changeTheme, 
       </Menu>
     </div>
   )
+}
+
+SlideMenu.propTypes = {
+  onClick: PropTypes.func
 }
 
 
