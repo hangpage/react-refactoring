@@ -9,12 +9,11 @@ const FormItem = Form.Item;
 class SearchForm extends React.Component {
   state = {
     expand: false,
-    pageSize: this.props.pageSize
   };
 
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.onSearch({...this.props.form.getFieldsValue(), pageSize: this.state.pageSize});
+    this.props.onSearch({...this.props.form.getFieldsValue()});
   }
 
   handleReset = () => {
@@ -114,7 +113,8 @@ class SearchForm extends React.Component {
 }
 
 SearchForm.propTypes = {
-  onSearch: PropTypes.func
+  onSearch: PropTypes.func,
+  queryFieldList: PropTypes.array.isRequired
 }
 
 export default Form.create()(SearchForm);

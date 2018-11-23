@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'dva';
 import UserList from './component/datatable';
 import UserSearch from '../../../components/common/SearchForm';
-
+import moment from 'moment';
 
 function Users({location, dispatch, users, loading}) {
   const {
@@ -24,10 +24,10 @@ function Users({location, dispatch, users, loading}) {
     queryFieldList: [
       {field: 'member', text: '客人姓名', defaultValue: ''},
       {field: 'doctor', text: '医生姓名/手机', defaultValue: ''},
-      {field: 'registerTimeStart', text: '挂号日期', type: 'datepicker', defaultValue: ''},
-      {field: 'registerTimeEnd', text: '到', type: 'datepicker', defaultValue: ''},
-      {field: 'createTimeStart', text: '创建时间', type: 'datepicker', defaultValue: ''},
-      {field: 'createTimeEnd', text: '到', type: 'datepicker', defaultValue: ''},
+      {field: 'registerTimeStart', text: '挂号日期', type: 'datepicker', defaultValue: moment(new Date())},
+      {field: 'registerTimeEnd', text: '到', type: 'datepicker', defaultValue: moment(new Date())},
+      {field: 'createTimeStart', text: '创建时间', type: 'datepicker', defaultValue: moment(new Date())},
+      {field: 'createTimeEnd', text: '到', type: 'datepicker', defaultValue: moment(new Date())},
       {field: 'registerNum', text: '挂号编号', defaultValue: ''},
     ],
     pageSize: pageSize || 20,

@@ -12,6 +12,7 @@
     "dva": "^2.2.3",
     "dva-loading": "^2.0.5",
     "echarts": "^4.2.0-rc.2",
+    "immutable": "^4.0.0-rc.12",
     "ipinyinjs": "^1.0.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
