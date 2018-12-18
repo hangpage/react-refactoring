@@ -1,121 +1,108 @@
 import React from 'react';
 import {connect} from 'dva';
-import UserList from './component/datatable';
-import UserSearch from '../../../components/common/SearchForm';
+import SearchForm from '../../../components/common/SearchForm';
 import moment from 'moment';
+import DataTable from "../../../components/common/DataTable";
+import ConstUrlConst from "../../../api/cash/CashUrlConst";
+import _ from 'lodash';
+import dict from '../../../utils/dictionary'
+import ALink from '../../../components/common/ALink';
 
-function Users({location, dispatch, users, loading}) {
+function Uncash({location, dispatch, uncash}) {
   const {
-    list, total, current,
-    currentItem, modalVisible, modalType, pageSize
-  } = users;
-
-  const handleRefresh = () => {
-    dispatch({
-      type: 'users/query',
-      payload: {
-        pageSize: pageSize || 20,
-      }
-    })
-  }
+    dataSource, current,
+    params,
+    currentItem
+  } = uncash;
 
 
-  const userSearchProps = {
+  const SearchFormProps = {
     queryFieldList: [
       {field: 'member', text: '客人姓名', defaultValue: ''},
       {field: 'doctor', text: '医生姓名/手机', defaultValue: ''},
-      {field: 'registerTimeStart', text: '挂号日期', type: 'datepicker', defaultValue: moment(new Date())},
-      {field: 'registerTimeEnd', text: '到', type: 'datepicker', defaultValue: moment(new Date())},
-      {field: 'createTimeStart', text: '创建时间', type: 'datepicker', defaultValue: moment(new Date())},
-      {field: 'createTimeEnd', text: '到', type: 'datepicker', defaultValue: moment(new Date())},
+      {field: 'registerTimeStart', text: '挂号日期', type: 'datepicker'},
+      {field: 'registerTimeEnd', text: '到', type: 'datepicker'},
+      {field: 'createTimeStart', text: '创建时间', type: 'datepicker'},
+      {field: 'createTimeEnd', text: '到', type: 'datepicker'},
       {field: 'registerNum', text: '挂号编号', defaultValue: ''},
     ],
-    pageSize: pageSize || 20,
     currentItem: currentItem,
     onSearch(params) {
       dispatch({
-        type: 'users/query',
+        type: 'uncash/query',
         payload: params
       })
     },
-    onCreat() {
-      dispatch({
-        type: 'users/showModal',
-        payload: {
-          modalType: 'create',
-        }
-      })
-    }
   };
   const userListProps = {
-    dataSource: list,
-    total,
-    loading: loading.effects['users/query'],
-    current,
-    modalVisible,
-    modalType,
     currentItem,
-    pageSize: pageSize || 20,
     size: 'small',
-    onComfirmClick(id) {
-      dispatch({
-        type: 'users/delete',
-        payload: {
-          id: id
-        }
-      }).then(() => {
-        handleRefresh()
-      })
-    },
     onEditClick(record) {
       dispatch({
-        type: 'users/showModal',
+        type: 'uncash/showModal',
         payload: {
           modalType: 'update',
           currentItem: record
         }
       })
     },
-    onModalCancelClick() {
-      dispatch({
-        type: 'users/hideModal'
-      })
-    },
-    onModalOkClick(params) {
-      console.log(params)
-      dispatch({
-        type: 'users/create',
-        payload: params
-      })
-    },
-    onCancelClick() {
-      dispatch({
-        type: 'users/hideModal'
-      })
-    },
-    onPageChange(pagination, filters, sorter) {
-      dispatch({
-        type: 'users/query',
-        payload: {
-          pageSize: pagination.pageSize,
-        }
-      })
-    }
   };
+
+  const onSettleClick = (row) => {
+    console.log(row)
+  };
+
+
+  const columns = [{
+    title: '操作',
+    dataIndex: 'opt',
+    render: (text, record) => (
+      <ALink onClick={() => onSettleClick(record)} text="结算"></ALink>
+    )
+  }, {
+    title: '已审处方数',
+    dataIndex: 'recipelAmount',
+  }, {
+    title: '挂号编号',
+    dataIndex: 'registerNum',
+  }, {
+    title: '门诊类型',
+    dataIndex: 'visitType',
+    render: (text, record) => (
+      _.find(dict.offlineRecipelType, {'id': record.visitType}).value
+    ),
+  }, {
+    title: '客人姓名',
+    dataIndex: 'memberName',
+  }, {
+    title: '客人手机',
+    dataIndex: 'memberMobile',
+  }, {
+    title: '年龄',
+    dataIndex: 'memberAge',
+  }, {
+    title: '大夫',
+    dataIndex: 'doctorName',
+  }];
 
   return (
     <div>
-      <UserSearch {...userSearchProps} />
-      <UserList {...userListProps} />
+      <SearchForm {...SearchFormProps} />
+      <DataTable
+        columns={columns}
+        params={params}
+        url={ConstUrlConst.Unpay_List}
+        dataSource={dataSource}
+      />
     </div>
   )
 }
 
 
-Users.propTypes = {};
+Uncash.propTypes = {};
 
-function mapStateToProps({users, loading}) {
-  return {users, loading};
+function mapStateToProps({uncash, loading}) {
+  return {uncash, loading};
 }
 
-export default connect(mapStateToProps)(Users);
+export default connect(mapStateToProps)(Uncash);

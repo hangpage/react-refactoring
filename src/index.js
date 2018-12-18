@@ -31,6 +31,7 @@ app.use(createLoading());
 app.model(require('./models/user/UserModel.js').default);
 app.model(require('./models/login/LoginModal.js').default);
 app.model(require('./models/common/app.js').default);
+app.model(require('./models/cash/UncashModel').default);
 
 // 4. Router
 app.router(require('./router').default);

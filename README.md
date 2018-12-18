@@ -89,6 +89,14 @@ Q1:
     
     
     
+### 关于state
+
+setState 是一个异步方法，一个生命周期内所有的 setState 方法会合并操作
+
+    
+### ReactDOM
+
+    
     
 ### 生命函数
 

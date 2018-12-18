@@ -59,19 +59,22 @@ class DataTable extends React.Component {
     })
   }
 
-  shouldComponentUpdate(nextProps, nextState){ //优化组件 尽量进行最小化的redner
+  shouldComponentUpdate(nextProps, nextState){ //优化组件 尽量进行最小化的render
     return !isEqual(nextProps, this.props) || !isEqual(nextState, this.state);
   }
 
-  componentWillReceiveProps(nextProps){debugger
-    const params = {...nextProps.params, ...{pageNum: 1, pageSize: this.state.pagination.pageSize}};
-    if(!isEqual(this.props, nextProps)){
-      this.props = nextProps;
-      this.fetch(params);
-    }
+  componentWillReceiveProps(nextProps){
+    // const params = {...nextProps.params, ...{pageNum: 1, pageSize: this.state.pagination.pageSize}};
+    // if(!isEqual(this.props, nextProps)){
+    //   this.props = nextProps;
+    //   this.fetch(params);
+    // }
+    this.setState({
+      dataSource: nextProps.dataSource
+    })
   }
 
-  render() {debugger
+  render() {
     const {columns} = this.props;
     const {dataSource, pagination, loading} = this.state;
     return (
