@@ -112,3 +112,24 @@ componentWillReceiveProps
     });
   }
 ```
+
+
+### router相关
+
+- 路由的跳转也会影响跳转页面组件的props
+
+
+### 关于less和css
+
+- 使用了 CSS Modules 后，就相当于给每个 class 名外加加了一个 :local，以此来实现样式的局部化，如果你想切换到全局模式，使用对应的 :global。
+```
+  :global{
+    .bold-title{
+      font-weight: bold;
+      font-size: @px14;
+    }
+    .info-box{
+      margin-right: 20px;
+    }
+  }
+```

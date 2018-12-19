@@ -3,10 +3,10 @@ import {connect} from 'dva';
 import SearchForm from '../../../components/common/SearchForm';
 import moment from 'moment';
 import DataTable from "../../../components/common/DataTable";
-import ConstUrlConst from "../../../api/cash/CashUrlConst";
+import CashUrlConst from "../../../api/cash/CashUrlConst";
 import _ from 'lodash';
 import dict from '../../../utils/dictionary'
-import ALink from '../../../components/common/ALink';
+import {Link ,routerRedux} from 'dva/router';
 
 function Uncash({location, dispatch, uncash}) {
   const {
@@ -49,15 +49,21 @@ function Uncash({location, dispatch, uncash}) {
   };
 
   const onSettleClick = (row) => {
-    console.log(row)
+    routerRedux.push('/uncash/settle')
   };
 
+  const style = {
+    color: '#CE8C26'
+  };
 
   const columns = [{
     title: '操作',
     dataIndex: 'opt',
     render: (text, record) => (
-      <ALink onClick={() => onSettleClick(record)} text="结算"></ALink>
+      <Link to={{
+          pathname: '/uncash/settle',
+          state: record
+        }} style={style}>结算</Link>
     )
   }, {
     title: '已审处方数',
@@ -91,7 +97,7 @@ function Uncash({location, dispatch, uncash}) {
       <DataTable
         columns={columns}
         params={params}
-        url={ConstUrlConst.Unpay_List}
+        url={CashUrlConst.SETTLEMENT_UNPAY_LIST}
         dataSource={dataSource}
       />
     </div>

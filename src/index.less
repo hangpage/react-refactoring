@@ -1,6 +1,8 @@
 @height: 100%;
 @width: 100%;
 @color: #9A353B;
+@main-color: #9F4545; //正安红
+@px14: 14px;
 
 html, body, :global(#root) {
   height: @height;
@@ -50,6 +52,16 @@ li, ul, body, html{
 
 .width200{
   width: 200px;
+}
+
+:global{
+  .bold-title{
+    font-weight: bold;
+    font-size: @px14;
+  }
+  .info-box span{
+    margin-right: 20px;
+  }
 }
 
 

@@ -5,9 +5,13 @@
 * */
 import React from 'react';
 const ALink = ({text, onClick, color="#CE8C26"}) => {
+    const style = {
+      color: color,
+      cursor: 'pointer'
+    };
     return (
       <div>
-        <span style={{color: color}} onClick={onClick}>{text}</span>
+        <span style={style} onClick={onClick}>{text}</span>
       </div>
     )
 };
