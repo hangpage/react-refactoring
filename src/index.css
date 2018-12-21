@@ -14,6 +14,7 @@ html {
 }
 /*   修正类css
     unit(@i,px): 避免less生成的css文件px和值之前多一个空格
+   //TODO 不知道为什么在fix.less文件中项目无法使用s
 */
 :global(.mt1) {
   margin-top: 1px;

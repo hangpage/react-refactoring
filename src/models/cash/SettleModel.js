@@ -43,7 +43,7 @@ export default {
             payload: {
               memberId: location.state.memberId
             }
-          })
+          });
           dispatch({
             type: 'updateState',
             payload: {

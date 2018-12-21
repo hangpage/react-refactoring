@@ -118,6 +118,16 @@ componentWillReceiveProps
 
 - 路由的跳转也会影响跳转页面组件的props(router内部将会更新一些route内部的状态，一些页面将自动接收location作为props，导致页面被rerender);
 
+- 使用createBrowserHistory刷新页面报错 Uncaught SyntaxError: Unexpected token <
+```
+    解决方法：
+     
+       在index.html中修改 .js 引入路径，使用绝对地址进行引入！
+        <script src="index.js"></script> =>  <script src="/index.js"></script>
+     
+
+```
+
 
 ### 关于less和css
 
@@ -132,6 +142,9 @@ componentWillReceiveProps
       margin-right: 20px;
     }
   }
+  
+  unit(@i,px): 避免less生成的css文件px和值之前多一个空格
+  
 ```
 
 ### 关于ref 
