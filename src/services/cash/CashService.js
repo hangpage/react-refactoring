@@ -27,3 +27,12 @@ export async function querySettlementMemberInfo(memberId, virsitRecordId){
   });
 }
 
+export async function queryMemberVoucher(params){
+  params.pageSize = 1000;
+  return request(`${CashUrlConst.MEMBER_VOUCHER_LIST}?${qs.stringify(params)}`,{
+    method: 'GET',
+    headers: new Headers(),
+    credentials: "include"
+  });
+}
+

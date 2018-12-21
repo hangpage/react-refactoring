@@ -1,5 +1,10 @@
-import {querySettlementUnSettled, querySettlementMemberInfo} from '../../services/cash/CashService'
+import {querySettlementUnSettled, querySettlementMemberInfo, queryMemberVoucher} from '../../services/cash/CashService';
+import dict from '../../utils/dictionary'
+import _ from 'lodash';
 import {message} from 'antd';
+import {getItemTotalMoney} from "../../utils/CashUtils";
+
+const MAX_CHARGETYPE_LENGTH = 2;
 
 export default {
   namespace: 'settle',
@@ -7,7 +12,13 @@ export default {
   state: {
     params: {},
     unSettleList: [],
-    memberInfo: {}
+    chargeTypeOptions: dict.chargeType,
+    memberInfo: {},
+    chargeTypeDefaultValue: [],
+    chargeTypeValue: [],
+    totalMoney: 0,
+    hasMemberCard: false,
+    voucherList: []
   },
 
   subscriptions: {
@@ -28,6 +39,12 @@ export default {
             }
           });
           dispatch({
+            type: 'queryMemberVoucher',
+            payload: {
+              memberId: location.state.memberId
+            }
+          })
+          dispatch({
             type: 'updateState',
             payload: {
               params: location.state
@@ -42,15 +59,17 @@ export default {
     * queryUnsettleList({payload}, {select, put, call}) {
       const {data} = yield call(querySettlementUnSettled, payload.orderId);
       if (data.success) {
+        const total = getItemTotalMoney(data.data, 'price');
         yield put({
           type: 'updateState',
           payload: {
-            unSettleList: data.data
+            unSettleList: data.data,
+            totalMoney: total
           }
         });
       }
     },
-    *queryMemberInfo({payload}, {select, put, call}){
+    * queryMemberInfo({payload}, {select, put, call}) {
       const {data} = yield call(querySettlementMemberInfo, payload.memberId, payload.virsitRecordId);
       if (data.success) {
         yield put({
@@ -60,6 +79,17 @@ export default {
           }
         });
       }
+    },
+    * queryMemberVoucher({payload}, {select, put, call}){
+      const {data} = yield call(queryMemberVoucher, payload);
+      if(data.success){
+        yield put({
+          type: 'updateState',
+          payload: {
+            voucherList: data.data
+          }
+        })
+      }
     }
   },
 
@@ -67,6 +97,23 @@ export default {
     updateState(state, action) {
       return {...state, ...action.payload};
     },
+    updateValue(state, action) {
+      let array = [];
+      state.chargeTypeOptions.forEach((item) => {
+        let map = {};
+        if (action.payload.chargeTypeValue.length === MAX_CHARGETYPE_LENGTH
+          && action.payload.chargeTypeValue.indexOf(item.value) === -1) {
+          map.label = item.label;
+          map.value = item.value;
+          map.disabled = true;
+        } else {
+          map.label = item.label;
+          map.value = item.value;
+        }
+        array.push(map);
+      });
+      return {...state, ...{chargeTypeOptions: array}};
+    }
   }
 
 }

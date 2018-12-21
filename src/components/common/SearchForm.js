@@ -14,16 +14,16 @@ class SearchForm extends React.Component {
   handleSearch = (e) => {
     e.preventDefault();
     this.props.onSearch({...this.props.form.getFieldsValue()});
-  }
+  };
 
   handleReset = () => {
     this.props.form.resetFields();
-  }
+  };
 
   toggle = () => {
     const { expand } = this.state;
     this.setState({ expand: !expand });
-  }
+  };
 
   // To generate mock Form.Item
   getFields() {

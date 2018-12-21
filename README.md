@@ -116,7 +116,7 @@ componentWillReceiveProps
 
 ### router相关
 
-- 路由的跳转也会影响跳转页面组件的props
+- 路由的跳转也会影响跳转页面组件的props(router内部将会更新一些route内部的状态，一些页面将自动接收location作为props，导致页面被rerender);
 
 
 ### 关于less和css
@@ -132,4 +132,48 @@ componentWillReceiveProps
       margin-right: 20px;
     }
   }
+```
+
+### 关于ref 
+
+
+##### 定义方式
+
+- 字符串定义（不知道何时废弃）
+- react16+ 支持react.createRef()方式创建ref
+- 回调函数
+
+- 文档上虽然写了ref不支持函数式组件，可是我在函数式组件中生命了变量也能够保存ref，进而调用子组件的方法。。
+
+```
+  import React from 'react';
+  import DataTable from "../../components/common/DataTable";
+  
+  class Test extends React.Component{
+      constructor(props){
+        super(props);
+  
+        this.textInput = null;
+  
+        // this.setTextInputRef = element => {
+        //   this.textInput = element;
+        // };
+      }
+      getData =(e) =>{
+        console.log(this.textInput.getSelectedRows());
+      };
+      render(){
+        return (
+          <div>
+            <div onClick={this.getData}>点击我</div>
+            <DataTable
+              ref={c => {this.textInput = c}}
+            />
+          </div>
+        )
+      }
+  
+  }
+  
+  export default Test;
 ```

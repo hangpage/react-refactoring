@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import {Table} from 'antd'
 import request from '../../utils/request';
 import isEqual from 'lodash.isequal'
-import {Map, List, fromJS} from 'immutable';
-import {toJs} from '../hoc/ToJs';
 import qs from 'qs';
 import styles from '../../index.less';
 
@@ -14,6 +12,7 @@ class DataTable extends React.Component {
     super(props);
     this.state = {
       dataSource: [],
+      selectedRows: [],
       loading: false,
       params: {},
       pagination: {
@@ -24,6 +23,10 @@ class DataTable extends React.Component {
         showQuickJumper: props.showQuickJumper || true
       }
     }
+  }
+
+  getSelectedRows(){
+    return this.state.selectedRows;
   }
 
   componentDidMount() {
@@ -38,7 +41,14 @@ class DataTable extends React.Component {
     }, () => {
       this.fetch()
     })
-  }
+  };
+
+  onSelectChange = (selectedRowKeys, selectedRows) => {
+    this.setState({
+      selectedRows
+    })
+  };
+
 
   fetch = (params) => {
     if(params){
@@ -57,7 +67,7 @@ class DataTable extends React.Component {
           pagination: Object.assign({},that.state.pagination, {total: data.total, current: params.pageNum})
       })
     })
-  }
+  };
 
   shouldComponentUpdate(nextProps, nextState){ //优化组件 尽量进行最小化的render
     return !isEqual(nextProps, this.props) || !isEqual(nextState, this.state);
@@ -75,8 +85,13 @@ class DataTable extends React.Component {
   }
 
   render() {
-    const {columns} = this.props;
-    const {dataSource, pagination, loading} = this.state;
+    const {columns, bordered, size} = this.props;
+    const rowSelection =  Object.assign({},{onChange: this.onSelectChange}, this.props.rowSelection);
+    const {dataSource, loading} = this.state;
+    let pagination = this.state.pagination;
+    if(this.props.pagination === false){
+      pagination = false;
+    }
     return (
       <Table
         columns={columns}
@@ -84,10 +99,12 @@ class DataTable extends React.Component {
         locale={{emptyText: '暂无数据'}}
         rowKey={record => record.id}
         pagination={pagination}
-        size="small"
+        size={size || 'small'}
         loading={loading}
         className={styles.mt10}
         onChange={this.onPageChange}
+        rowSelection={rowSelection}
+        bordered={bordered}
       />
     )
   }

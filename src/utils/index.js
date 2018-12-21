@@ -42,3 +42,19 @@ export function convertObjToDictObj(data, value) {
     return obj;
   })
 }
+
+
+/**
+ * 更新数组中对象的value
+ * @param   {data}     array
+ * @param   {value}    id
+ */
+export function updateObjectValueInArray(data, value) {
+  return data.map((item) => {
+    var obj = {};
+    obj.id = item.id;
+    obj.value = item[value];
+    return obj;
+  })
+}
+
