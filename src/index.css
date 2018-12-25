@@ -1255,4 +1255,19 @@ html {
 :global .text-align-center {
   text-align: center;
 }
+:global .charge-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
+}
+:global .charge-box input {
+  width: initial;
+}
+:global .charge-box span {
+  margin-left: 10px;
+}
+:global .his-hide {
+  display: none !important;
+}
 /*# sourceMappingURL=index.css.map */

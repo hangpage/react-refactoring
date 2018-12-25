@@ -47,8 +47,9 @@ class ComboBox extends React.Component {
   }
 
   render() {
+    const style = Object.assign({}, {minWidth: '100px'}, this.props.style);
     return (
-      <div style={this.props.style}>
+      <div style={style}>
           <Select onChange={this.handleChange}
                   allowClear={this.props.allowClear || true}
                   showSearch={this.props.showSearch || true}

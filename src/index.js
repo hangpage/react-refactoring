@@ -7,13 +7,13 @@ import createLoading from 'dva-loading';
 import createHistory from 'history/createBrowserHistory';
 const history = createHistory({
   basename:''//这里放入你对应的 basename
-})
+});
 
 
 // 1. Initialize
 
 //暂时使用browseHistory hash一直warning很烦
-//TODO 直接刷新浏览器会报错， 会将页面路由当成请求发送 稍后处理 先撸代码
+//之前刷新报错的解决方案可查看README.MD
 const app = dva({
   history: history
 });

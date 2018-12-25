@@ -10,15 +10,15 @@ export default {
   namespace: 'settle',
 
   state: {
-    params: {},
-    unSettleList: [],
-    chargeTypeOptions: dict.chargeType,
-    memberInfo: {},
-    chargeTypeDefaultValue: [],
-    chargeTypeValue: [],
-    totalMoney: 0,
-    hasMemberCard: false,
-    voucherList: []
+    params: {}, //接收传递进来的参数
+    unSettleList: [], //客人待支付商品列表
+    chargeTypeOptions: dict.chargeType, //允许客人使用的支付方式
+    memberInfo: {}, //客人信息
+    chargeTypeDefaultValue: [], //支付方式默认值
+    chargeTypeValue: [], //已选择的支付方式
+    totalMoney: 0, //订单总额
+    voucherList: [], //客人优惠券列表
+    calcMoneyList: [] //两种支付方式各自支付的金额
   },
 
   subscriptions: {
@@ -97,6 +97,9 @@ export default {
     updateState(state, action) {
       return {...state, ...action.payload};
     },
+    updateCalcMoneyList(state, action){
+
+    },
     updateValue(state, action) {
       let array = [];
       state.chargeTypeOptions.forEach((item) => {
@@ -112,7 +115,7 @@ export default {
         }
         array.push(map);
       });
-      return {...state, ...{chargeTypeOptions: array}};
+      return {...state, ...{chargeTypeOptions: array, chargeTypeValue: action.payload.chargeTypeValue}};
     }
   }
 
