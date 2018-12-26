@@ -10,7 +10,7 @@ import {
   DatePicker
 } from 'antd';
 import dict from '../../../utils/dictionary';
-import SysUrlConst from '../../../utils/SysUrlConst';
+import SysUrlConst from '../../../const/SysUrlConst';
 import moment from 'moment';
 import pinyinUtil from 'ipinyinjs';
 import isEqual from 'lodash.isequal';

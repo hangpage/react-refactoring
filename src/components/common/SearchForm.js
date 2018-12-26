@@ -4,6 +4,7 @@ import { Form, Row, Col, Input, Button, Select, DatePicker } from 'antd';
 import SearchButton from './SearchButton';
 import ComboBox from './ComboBox';
 import styles from '../../index.less';
+import {reFormatQueryData} from "../../utils";
 const FormItem = Form.Item;
 
 class SearchForm extends React.Component {
@@ -13,7 +14,8 @@ class SearchForm extends React.Component {
 
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.onSearch({...this.props.form.getFieldsValue()});
+    console.log(reFormatQueryData(this.props.form.getFieldsValue()));
+    this.props.onSearch(reFormatQueryData(this.props.form.getFieldsValue()));
   };
 
   handleReset = () => {
@@ -69,7 +71,7 @@ class SearchForm extends React.Component {
               {getFieldDecorator(`${fieldList[i].field}`,{
                 initialValue: fieldList[i].defaultValue
               })(
-                <DatePicker showTime format="YYYY-MM-DD" />
+                <DatePicker format="YYYY-MM-DD" />
               )}
             </FormItem>
           </Col>
@@ -94,7 +96,7 @@ class SearchForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="mb10">
         <Form
           className="ant-advanced-search-form"
           onSubmit={this.handleSearch}

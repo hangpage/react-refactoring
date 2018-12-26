@@ -6,6 +6,7 @@ import MemberInfoBox from "../../../components/common/MemberInfoBox";
 import ComboBox from "../../../components/common/ComboBox";
 import PayTypeConst from "../../../const/PayTypeConst";
 import classNames from 'classnames'
+import SysUrlConst from "../../../const/SysUrlConst";
 //require('../../../index.less');
 
 const {TextArea} = Input;
@@ -58,7 +59,9 @@ const columns = [{
 // }
 
 const Settle = ({location, dispatch, settle}) => {
-  const {unSettleList, memberInfo, chargeTypeOptions, chargeTypeValue, chargeTypeDefaultValue, totalMoney, voucherList} = settle;
+  const {unSettleList, memberInfo, chargeTypeOptions, chargeTypeValue, chargeTypeDefaultValue, totalMoney, voucherList,
+    balanceAfterPay
+  } = settle;
   const onChange = (value) => {
     dispatch({
       type: 'settle/updateValue',
@@ -76,12 +79,10 @@ const Settle = ({location, dispatch, settle}) => {
 
   const onMoneyInputChange = (payType, e) => {
     dispatch({
-      type: 'settle/updateState',
+      type: 'settle/updateCalcMoneyList',
       payload: {
-        calcMoneyList: {
-          payType,
-          value: e.target.value
-        }
+        payType,
+        value: e.target.value
       }
     });
   };
@@ -142,7 +143,7 @@ const Settle = ({location, dispatch, settle}) => {
           <span>实收金额：</span>
           <Input onChange={(e) => onMoneyInputChange(PayTypeConst.HUI_YUAN_KA, e)}/>
           <span>支付后余额：</span>
-          <Input disabled={true}/>
+          <Input disabled={true} value={balanceAfterPay}/>
         </div>
         <div className={classNames({
           'charge-box': true,
@@ -150,7 +151,7 @@ const Settle = ({location, dispatch, settle}) => {
         })}>
           <span>方式：POS</span>
           <span>机器：</span>
-          <ComboBox url='/api/payment/method/pos?_=1545726527256' text="transactionId" valueProp="transactionId"/>
+          <ComboBox url={SysUrlConst.SYS_POS} text="transactionId" valueProp="transactionId"/>
           <span>卡号后四位：</span>
           <Input disabled={true} value={memberInfo.memberCard && memberInfo.memberCard.balance}/>
           <span>实收金额：</span>

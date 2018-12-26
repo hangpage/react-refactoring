@@ -3,7 +3,7 @@ import {connect} from 'dva';
 import {Popconfirm} from 'antd';
 import UserSearch from '../../components/common/SearchForm';
 import Dialog from './component/Modal';
-import SysUrlConst from '../../utils/SysUrlConst';
+import SysUrlConst from '../../const/SysUrlConst';
 import DataTable from '../../components/common/DataTable';
 
 

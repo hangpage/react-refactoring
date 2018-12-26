@@ -3,6 +3,8 @@ import dict from '../../utils/dictionary'
 import _ from 'lodash';
 import {message} from 'antd';
 import {getItemTotalMoney} from "../../utils/CashUtils";
+import PayTypeConst from "../../const/PayTypeConst";
+import BigNumber from "bignumber.js";
 
 const MAX_CHARGETYPE_LENGTH = 2;
 
@@ -18,7 +20,8 @@ export default {
     chargeTypeValue: [], //已选择的支付方式
     totalMoney: 0, //订单总额
     voucherList: [], //客人优惠券列表
-    calcMoneyList: [] //两种支付方式各自支付的金额
+    calcMoneyList: [], //两种支付方式各自支付的金额
+    balanceAfterPay: 0, //会员卡客人支付后余额
   },
 
   subscriptions: {
@@ -98,7 +101,20 @@ export default {
       return {...state, ...action.payload};
     },
     updateCalcMoneyList(state, action){
-
+      const list = _.cloneDeep(state.calcMoneyList);
+      const finder = _.find(list, (o) => {return o.payType === action.payload.payType});
+      let otherState = {};
+      switch (action.payload.payType) {
+        case PayTypeConst.HUI_YUAN_KA:
+          otherState.balanceAfterPay = BigNumber(state.memberInfo.memberCard.balance).minus(action.payload.value).toNumber();
+          break;
+      }
+      if(finder){
+        finder.value = action.payload.value;
+      }else{
+        list.push(action.payload);
+      }
+      return {...state, ...{calcMoneyList: list}, ...otherState};
     },
     updateValue(state, action) {
       let array = [];

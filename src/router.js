@@ -12,16 +12,16 @@ import settle from './routes/cashier/uncash/settle';
 function RouterConfig({history}) {
   return (
     <Router history={history}>
-      <div>
+      <div style={{height: '100%'}}>
         <Switch>
           <Route path="/login" exact component={Login}/>
           <APP>
-              <Route path="/" exact component={Uncash}/>
-              <Route path="/html/member/info/main.html" exact component={Users}/>
-              <Route path="/html/member/protocol/main.html" exact component={Test}/>
-              <Route path="/html/cash/uncash/main.html" exact component={Uncash}/>
-              <Route path="/uncash/settle" exact component={settle}/>
-            </APP>
+            <Route path="/" exact component={Uncash}/>
+            <Route path="/html/member/info/main.html" exact component={Users}/>
+            <Route path="/html/member/protocol/main.html" exact component={Test}/>
+            <Route path="/html/cash/uncash/main.html" exact component={Uncash}/>
+            <Route path="/uncash/settle" exact component={settle}/>
+          </APP>
         </Switch>
       </div>
     </Router>
