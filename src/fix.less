@@ -1,0 +1,17 @@
+.marginLoop(@n, @i:1) when (@i < @n){
+  :global(.mt@{i}){
+    margin-top: @i px;
+  }
+  :global(.ml@{i}){
+    margin-left: @i px;
+  }
+  :global(.mr@{i}){
+    margin-right: @i px;
+  }
+  :global(.mb@{i}){
+    margin-bottom: @i px;
+  }
+  .marginLoop(@n, (@i + 1));
+}
+
+.marginLoop(100);

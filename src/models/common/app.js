@@ -1,13 +1,10 @@
-/**
- * @param
- * @author zhu <zzhihang@hotmail.com> 2018/6/7 15:16
- * @description：全局model,包括tab panes
- *
- */
-import _ from 'lodash';
-import { menuService } from '../../services/app/MenuService';
+import {
+  dropHospitalsService,
+  menuService,
+  queryLoginUserService,
+  switchStoreService
+} from '../../services/app/MenuService';
 import { arrayToTree } from "../../utils";
-import LybCalendar from "../../routes/indexpage/index";
 
 
 export default {
@@ -16,28 +13,34 @@ export default {
 
   state: {
     newTabIndex: 0,
-    panes: [
-      { title: '首页', content: <LybCalendar />, key: '1', closable: false },
-    ],
+    panes: [],
     activeKey: '1',
     menus: [],
     menuTreeData: [],
     mode: 'horizontal',
-    theme: 'dark',
+    theme: 'light',
     defaultSelectedKeys: ['1'],
-    currentMenuItemChildren: []
+    currentMenuItemChildren: [],
+    dropHospitalsList: [],
+    userInfo: {}
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       dispatch({
         type: 'query'
-      })
+      });
+      dispatch({
+        type: 'queryDropHospitalsList'
+      });
+      dispatch({
+        type: 'queryLoginUser'
+      });
     },
   },
 
   effects: {
-    *query({payload}, {call, put}) {  // eslint-disable-line
+    *query({payload}, {call, put}) {
       const {data} = yield call(menuService, payload);
       if (data.success) {
         yield put({
@@ -48,9 +51,40 @@ export default {
         });
       }
     },
+    *queryDropHospitalsList({payload}, {call, put}){
+      const {data} = yield call(dropHospitalsService, payload);
+      if (data.success) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            dropHospitalsList: data.data,
+          }
+        });
+      }
+    },
+    *queryLoginUser({payload}, {call, put}){
+      const {data} = yield call(queryLoginUserService);
+      if(data.success){
+        yield put({
+          type: 'updateState',
+          payload: {
+            userInfo: data.data
+          }
+        })
+      }
+;    },
+    *switchStore({payload}, {call, put}){
+      const {data} = yield call(switchStoreService, payload.hospitalId);
+      if (data.success) {
+        window.location.reload();
+      }
+    }
   },
 
   reducers: {
+    updateState(state, action){
+      return {...state, ...action.payload};
+    },
     addTab(state, action){
       const panes = state.panes;
       const activeKey = action.payload.key || `newTab${state.newTabIndex++}`;
@@ -82,6 +116,8 @@ export default {
     onMenuItemClick(state, action){
       return {...state, ...action.payload};
     },
+    changeTheme(state, action){
+      return {...state, ...action.payload};
+    }
   },
-
 };

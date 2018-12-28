@@ -1,5 +1,4 @@
 import request from '../../utils/request';
-import qs from 'qs';
 
 export async function queryMmeberLevel(params) {
   return request('/api/sys/member/level',{
@@ -7,4 +6,12 @@ export async function queryMmeberLevel(params) {
     headers: new Headers(),
     credentials: "include"
   });
+}
+
+export async function querySysDisease(){
+  return request('/api/sys/diseases', {
+    method: 'GET',
+    headers: new Headers(),
+    credentials: "include"
+  })
 }

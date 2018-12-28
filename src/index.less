@@ -1,11 +1,44 @@
 @height: 100%;
 @width: 100%;
-@color: #9A353B;
+@color: #0D0D0D;
+@main-color: #9F4545; //正安红
+@px14: 14px;
+@infoColor: #FF821D; //提示span颜色
 
 html, body, :global(#root) {
   height: @height;
+  color: @color;
 }
 
+li, ul, body, html{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*   修正类css
+    unit(@i,px): 避免less生成的css文件px和值之前多一个空格
+   //TODO 不知道为什么在fix.less文件中项目无法使用s
+*/
+.marginLoop(@n, @i:1) when (@i < @n){
+  :global(.mt@{i}){
+    margin-top: unit(@i,px);
+  }
+  :global(.ml@{i}){
+    margin-left: unit(@i,px);
+  }
+  :global(.mr@{i}){
+    margin-right: unit(@i,px);
+  }
+  :global(.mb@{i}){
+    margin-bottom: unit(@i,px);
+  }
+  .marginLoop(@n, (@i + 1));
+}
+
+.marginLoop(100);
+
+/*   修正类css */
 .verticalCenter{
   display: flex;
   justify-content: center;
@@ -33,11 +66,57 @@ html, body, :global(#root) {
   text-align: left;
 }
 
-.mt10{
-    margin-top: 10px;
-}
-
 .lyb_flex_sb{
   display: flex;
   justify-content: space-between;
 }
+
+.width200{
+  width: 200px;
+}
+
+:global{
+  .cash-bold-title{
+    font-weight: bold;
+    font-size: @px14;
+    line-height: 25px;
+    margin-top: 20px;
+  }
+  .info-box span{
+    margin-right: 20px;
+  }
+  .lyb-info{
+    color: @infoColor;
+    font-size: 13px;
+    font-weight: normal;
+  }
+
+  .lyb-color{
+    color: @main-color;
+  }
+
+  .text-align-center{
+    text-align: center;
+  }
+  .charge-box{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 10px;
+    & input{
+      width: initial;
+    }
+    & span{
+      margin-left: 10px;
+    }
+  }
+  .his-hide{
+    display: none !important;
+  }
+  .lyb-header{
+    display: flex;
+    padding-right: 0;
+  }
+}
+
+

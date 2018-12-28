@@ -1,30 +1,31 @@
 import React from 'react';
-import ReactDOM  from 'react-dom';
 import PropTypes from 'prop-types';
-import { Form, Row, Col, Input, Button, Icon, Select } from 'antd';
-import SearchButton from '../common/SearchButton'
+import { Form, Row, Col, Input, Button, Select, DatePicker } from 'antd';
+import SearchButton from './SearchButton';
+import ComboBox from './ComboBox';
 import styles from '../../index.less';
+import {reFormatQueryData} from "../../utils";
 const FormItem = Form.Item;
 
-class AdvancedSearchForm extends React.Component {
+class SearchForm extends React.Component {
   state = {
     expand: false,
-    pageSize: this.props.pageSize
   };
 
   handleSearch = (e) => {
     e.preventDefault();
-    this.props.onSearch({...this.props.form.getFieldsValue(), pageSize: this.state.pageSize});
-  }
+    console.log(reFormatQueryData(this.props.form.getFieldsValue()));
+    this.props.onSearch(reFormatQueryData(this.props.form.getFieldsValue()));
+  };
 
   handleReset = () => {
     this.props.form.resetFields();
-  }
+  };
 
   toggle = () => {
     const { expand } = this.state;
     this.setState({ expand: !expand });
-  }
+  };
 
   // To generate mock Form.Item
   getFields() {
@@ -37,11 +38,6 @@ class AdvancedSearchForm extends React.Component {
         let options = [];
         if(fieldList[i].datasource){
           options = fieldList[i].datasource.map(item => <Select.Option key={item.id} value={item.id}>{item.value}</Select.Option>);
-        }else{
-          fieldList[i].dataservice().then(({data}) => {
-            options = data.data;
-            //console.log(options)
-          })
         }
         children.push(
           <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
@@ -52,6 +48,30 @@ class AdvancedSearchForm extends React.Component {
                 <Select allowClear={true}>
                   {options}
                 </Select>
+              )}
+            </FormItem>
+          </Col>
+        );
+      }else if(fieldList[i].type === 'combobox'){
+        children.push(
+          <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={`${fieldList[i].text}`}>
+              {getFieldDecorator(`${fieldList[i].field}`,{
+                initialValue: fieldList[i].defaultValue
+              })(
+                <ComboBox url={fieldList[i].url} valueProp={fieldList[i].valueProp} nameProp={fieldList[i].nameProp}/>
+              )}
+            </FormItem>
+          </Col>
+        );
+      }else if(fieldList[i].type === 'datepicker'){
+        children.push(
+          <Col span={8} key={i} style={{ display: i < count ? 'block' : 'none' }}>
+            <FormItem label={`${fieldList[i].text}`}>
+              {getFieldDecorator(`${fieldList[i].field}`,{
+                initialValue: fieldList[i].defaultValue
+              })(
+                <DatePicker format="YYYY-MM-DD" />
               )}
             </FormItem>
           </Col>
@@ -76,7 +96,7 @@ class AdvancedSearchForm extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="mb10">
         <Form
           className="ant-advanced-search-form"
           onSubmit={this.handleSearch}
@@ -94,9 +114,10 @@ class AdvancedSearchForm extends React.Component {
   }
 }
 
-AdvancedSearchForm.propTypes = {
-  onSearch: PropTypes.func
+SearchForm.propTypes = {
+  onSearch: PropTypes.func,
+  queryFieldList: PropTypes.array.isRequired
 }
 
-export default Form.create()(AdvancedSearchForm);
+export default Form.create()(SearchForm);
 

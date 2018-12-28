@@ -7,7 +7,6 @@ export default {
   state: {
       list: [],
       total: null,
-      loading: false, // 控制加载状态
       current: null, // 当前分页信息
       pageSize: 20,
       currentItem: {}, // 当前操作的用户对象
@@ -19,12 +18,12 @@ export default {
     setup({ dispatch, history }) {
       history.listen(location => {
         // location中获取上个页面传入的参数
-        if (location.pathname === '/user') {
-            dispatch({
-              type: 'query',
-              payload: location.query || {pageSize: 20, pageNum: 1}
-            });
-        }
+        // if (location.pathname === '/html/member/info/main.html') {
+        //     dispatch({
+        //       type: 'query',
+        //       payload: location.query || {pageSize: 20, pageNum: 1}
+        //     });
+        // }
       });
 
     },
@@ -32,7 +31,6 @@ export default {
 
   effects: {
     *query({payload}, {select, put, call}){
-        yield put({ type: 'showLoading' });
         const { data } = yield call(query, payload);
         if (data.success) {
           yield put({
@@ -40,7 +38,8 @@ export default {
             payload: {
               list: data.data,
               total: data.total,
-              current: payload.current || 1
+              pageSize: payload.pageSize || 20,
+              current: payload.pageNum || 1
             }
           });
         }
@@ -73,7 +72,7 @@ export default {
   reducers: {
     //reducer 接收参数 state 和 action，返回新的 state，通过语句表达即 (state, action) => newState
     showLoading(state, action){
-      return { ...state, loading: true }
+      return { ...state }
     },
     showModal(state, action){
       return { ...state, modalVisible: true, currentItem: action.payload.currentItem, modalType: action.payload.modalType }
@@ -82,16 +81,16 @@ export default {
       return { ...state, modalVisible: false }
     },
     querySuccess(state, action){
-      return { ...state, ...action.payload, loading: false };
+      return { ...state, ...action.payload};
     },
     handPageClick(state, action){
       return { ...state, current: action.payload.current, pageNum: action.payload.current }
     },
     createSuccess(state, action){
-      return { ...state, loading: false }
+      return { ...state}
     },
     deleteSuccess(state, action){
-      return { ...state, loading: false }
+      return { ...state}
     },
     updateSuccess(){},
   },

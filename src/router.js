@@ -1,15 +1,29 @@
 import React from 'react';
-import { Router, Route, Switch, browserHistory } from 'dva/router';
-import IndexPage from './routes/IndexPage';
+import {Router, Route, Switch} from 'dva/router';
+import APP from './routes/APP';
+import Users from './routes/user';
+import Uncash from './routes/cashier/uncash';
+import Indexpage from './routes/indexpage';
+import Echarts from './routes/echarts'
 import Login from './routes/login';
+import Test from './routes/test';
+import settle from './routes/cashier/uncash/settle';
 
-function RouterConfig({ history }) {
+function RouterConfig({history}) {
   return (
     <Router history={history}>
-      <Switch>
-        <Route path="/" exact component={IndexPage} />
-        <Route path="/login" component={Login} />
-      </Switch>
+      <div style={{height: '100%'}}>
+        <Switch>
+          <Route path="/login" exact component={Login}/>
+          <APP>
+            <Route path="/" exact component={Uncash}/>
+            <Route path="/html/member/info/main.html" exact component={Users}/>
+            <Route path="/html/member/protocol/main.html" exact component={Test}/>
+            <Route path="/html/cash/uncash/main.html" exact component={Uncash}/>
+            <Route path="/uncash/settle" exact component={settle}/>
+          </APP>
+        </Switch>
+      </div>
     </Router>
   );
 }

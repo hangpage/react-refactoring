@@ -1,24 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Table, Popconfirm} from 'antd';
-import Dialog from './Modal';
-import DataTable from '../common/DataTable';
-import styles from '../../index.less';
+import {Popconfirm} from 'antd';
+import DataTable from '../../../../components/common/DataTable';
 
 const UserList = ({
                     total,
                     current,
-                    currentItem,
-                    loading,
                     pageSize,
                     dataSource,
                     onComfirmClick,
                     onEditClick,
                     modalVisible,
-                    modalType,
                     onModalOkClick,
                     onModalCancelClick,
-                    onPageChange,
+                    onPageChange
                   }) => {
 
   const handleConfirmClick = (record, e) => {
@@ -78,12 +73,19 @@ const UserList = ({
   //定义分页对象
 
 
+  const pagination = {
+    pageNum: current || 1,
+    pageSize: pageSize || 20,
+    size: 'small',
+    showSizeChanger: true,
+    showQuickJumper: true,
+    total: total
+  };
+
   const dialogProps = {
-    currentItem: modalType === 'create' ? {} : currentItem,
     modalVisible,
     onModalOkClick,
     onModalCancelClick,
-    modalType,
   }
 
 
@@ -91,13 +93,17 @@ const UserList = ({
     <div>
       <DataTable
         columns={columns}
-        url="/api/member/info/list"
+        dataSource={dataSource}
+        pagination={pagination}
+        onPageChange={onPageChange}
       />
-      <Dialog {...dialogProps} />
     </div>
   )
 }
 
-UserList.propTypes = {};
+UserList.propTypes = {
+  dataSource: PropTypes.array,
+  columns: PropTypes.array
+};
 
 export default UserList;

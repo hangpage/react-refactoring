@@ -7,13 +7,19 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "antd": "^3.10.1",
     "axios": "^0.18.0",
+    "bignumber.js": "^8.0.1",
+    "classnames": "^2.2.6",
     "dva": "^2.2.3",
-    "react": "^15.5.1",
-    "react-dom": "^15.5.1",
+    "dva-loading": "^2.0.5",
+    "echarts": "^4.2.0-rc.2",
+    "immutable": "^4.0.0-rc.12",
+    "ipinyinjs": "^1.0.0",
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
-    "ipinyinjs": "^1.0.0"
+    "react": "^15.5.1",
+    "react-dom": "^15.5.1"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",
