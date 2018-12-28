@@ -15,7 +15,10 @@ const history = createHistory({
 //暂时使用browseHistory hash一直warning很烦
 //之前刷新报错的解决方案可查看README.MD
 const app = dva({
-  history: history
+  history: history,
+  onError(e, dispatch) {
+    console.log(e.message);
+  },
 });
 
 // const app = dva();

@@ -1,4 +1,9 @@
-import { menuService } from '../../services/app/MenuService';
+import {
+  dropHospitalsService,
+  menuService,
+  queryLoginUserService,
+  switchStoreService
+} from '../../services/app/MenuService';
 import { arrayToTree } from "../../utils";
 
 
@@ -8,23 +13,29 @@ export default {
 
   state: {
     newTabIndex: 0,
-    panes: [
-
-    ],
+    panes: [],
     activeKey: '1',
     menus: [],
     menuTreeData: [],
     mode: 'horizontal',
     theme: 'light',
     defaultSelectedKeys: ['1'],
-    currentMenuItemChildren: []
+    currentMenuItemChildren: [],
+    dropHospitalsList: [],
+    userInfo: {}
   },
 
   subscriptions: {
     setup({ dispatch, history }) {
       dispatch({
         type: 'query'
-      })
+      });
+      dispatch({
+        type: 'queryDropHospitalsList'
+      });
+      dispatch({
+        type: 'queryLoginUser'
+      });
     },
   },
 
@@ -40,9 +51,40 @@ export default {
         });
       }
     },
+    *queryDropHospitalsList({payload}, {call, put}){
+      const {data} = yield call(dropHospitalsService, payload);
+      if (data.success) {
+        yield put({
+          type: 'updateState',
+          payload: {
+            dropHospitalsList: data.data,
+          }
+        });
+      }
+    },
+    *queryLoginUser({payload}, {call, put}){
+      const {data} = yield call(queryLoginUserService);
+      if(data.success){
+        yield put({
+          type: 'updateState',
+          payload: {
+            userInfo: data.data
+          }
+        })
+      }
+;    },
+    *switchStore({payload}, {call, put}){
+      const {data} = yield call(switchStoreService, payload.hospitalId);
+      if (data.success) {
+        window.location.reload();
+      }
+    }
   },
 
   reducers: {
+    updateState(state, action){
+      return {...state, ...action.payload};
+    },
     addTab(state, action){
       const panes = state.panes;
       const activeKey = action.payload.key || `newTab${state.newTabIndex++}`;

@@ -1270,4 +1270,8 @@ html {
 :global .his-hide {
   display: none !important;
 }
+:global .lyb-header {
+  display: flex;
+  padding-right: 0;
+}
 /*# sourceMappingURL=index.css.map */

@@ -7,6 +7,8 @@ import ComboBox from "../../../components/common/ComboBox";
 import PayTypeConst from "../../../const/PayTypeConst";
 import classNames from 'classnames'
 import SysUrlConst from "../../../const/SysUrlConst";
+import {numberPatter} from "../../../const/RegPattern";
+import BigNumber from "bignumber.js";
 //require('../../../index.less');
 
 const {TextArea} = Input;
@@ -50,19 +52,23 @@ const columns = [{
   align: COLUMNS_ALIGN_TYPE
 }];
 
-// class Settle extends React.Component{
-//     constructor(props){
-//       super(props);
-//       this.
-//     }
-//
-// }
-
-const Settle = ({location, dispatch, settle}) => {
+const Settle = ({location, dispatch, settle, loading}) => {
   const {unSettleList, memberInfo, chargeTypeOptions, chargeTypeValue, chargeTypeDefaultValue, totalMoney, voucherList,
-    balanceAfterPay
+    balanceAfterPay, calcMoneyList
   } = settle;
   const onChange = (value) => {
+    let map = {};
+    if(value.length === 2){
+      map.payType = value[1];
+      map.value = BigNumber(totalMoney).minus(calcMoneyList[0].value || 0).toFixed(1);
+    }else{
+      map.payType = value[0];
+      map.value = totalMoney;
+    }
+    dispatch({
+      type: 'settle/updateCalcMoneyList',
+      payload: map
+    });
     dispatch({
       type: 'settle/updateValue',
       payload: {
@@ -78,13 +84,31 @@ const Settle = ({location, dispatch, settle}) => {
   };
 
   const onMoneyInputChange = (payType, e) => {
+    let value = e.target.value.replace(numberPatter,'') || 0;
+    if(Number(value) > Number(totalMoney)){
+      value = totalMoney;
+    }
+    let find = {};
+    if(chargeTypeValue.length === 2){//TODO 考虑是否修改updateCalcMoneyList这个reducer的设计，直接传入计算好的支付方式会不会更好？
+      find = calcMoneyList.find((calc) => calc.payType !== payType);
+      find.value = BigNumber(totalMoney).minus(value || 0).toFixed(1);
+      dispatch({
+        type: 'settle/updateCalcMoneyList',
+        payload: find
+      });
+    }
     dispatch({
       type: 'settle/updateCalcMoneyList',
       payload: {
         payType,
-        value: e.target.value
+        value: value
       }
     });
+  };
+
+  const calcPrice = (calcMoneyList, payType) => {
+    const find = calcMoneyList.find((calc) => calc.payType === payType);
+    return find ? find.value : 0.00;
   };
 
   return (
@@ -141,7 +165,8 @@ const Settle = ({location, dispatch, settle}) => {
           <span>卡内余额：</span>
           <Input disabled={true} value={memberInfo.memberCard && memberInfo.memberCard.balance}/>
           <span>实收金额：</span>
-          <Input onChange={(e) => onMoneyInputChange(PayTypeConst.HUI_YUAN_KA, e)}/>
+          <Input onChange={(e) => onMoneyInputChange(PayTypeConst.HUI_YUAN_KA, e)}
+                 value={calcPrice(calcMoneyList, PayTypeConst.HUI_YUAN_KA)}/>
           <span>支付后余额：</span>
           <Input disabled={true} value={balanceAfterPay}/>
         </div>
@@ -155,7 +180,8 @@ const Settle = ({location, dispatch, settle}) => {
           <span>卡号后四位：</span>
           <Input disabled={true} value={memberInfo.memberCard && memberInfo.memberCard.balance}/>
           <span>实收金额：</span>
-          <Input onChange={(e) => onMoneyInputChange(PayTypeConst.POS, e)}/>
+          <Input onChange={(e) => onMoneyInputChange(PayTypeConst.POS, e)}
+          value={calcPrice(calcMoneyList, PayTypeConst.POS)}/>
         </div>
         <div className={classNames({
           'charge-box': true,
@@ -163,7 +189,8 @@ const Settle = ({location, dispatch, settle}) => {
         })}>
           <span>方式：现金</span>
           <span>实收金额：</span>
-          <Input onChange={(e) => onMoneyInputChange(PayTypeConst.XIAN_JIN, e)}/>
+          <Input onChange={(e) => onMoneyInputChange(PayTypeConst.XIAN_JIN, e)}
+          value={calcPrice(calcMoneyList, PayTypeConst.XIAN_JIN)}/>
         </div>
       </div>
       <div className="cash-bold-title">收费金额</div>

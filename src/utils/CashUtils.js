@@ -15,5 +15,5 @@ export function getItemTotalMoney(list, field) {
   list.forEach((item) => {
     total = total.plus(item[field]);
   });
-  return total.toFixed(2);
+  return total.toFixed(1);
 }

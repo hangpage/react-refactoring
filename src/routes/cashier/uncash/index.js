@@ -8,7 +8,7 @@ import _ from 'lodash';
 import dict from '../../../utils/dictionary'
 import {Link ,routerRedux} from 'dva/router';
 
-function Uncash({location, dispatch, uncash}) {
+function Uncash({location, dispatch, uncash, loading}) {
   const {
     dataSource, current,
     params,
@@ -91,6 +91,7 @@ function Uncash({location, dispatch, uncash}) {
     dataIndex: 'doctorName',
   }];
 
+  console.log(loading)
   return (
     <div>
       <SearchForm {...SearchFormProps} />
@@ -99,6 +100,7 @@ function Uncash({location, dispatch, uncash}) {
         params={params}
         url={CashUrlConst.SETTLEMENT_UNPAY_LIST}
         dataSource={dataSource}
+        loading={loading.effects['uncash/query']}
       />
     </div>
   )

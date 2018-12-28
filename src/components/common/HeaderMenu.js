@@ -13,17 +13,18 @@ const Menus = ({menus, onHeaderMenuItemClick}) => {
           theme="dark"
           mode="horizontal"
           defaultSelectedKeys={['01']}
-          style={{ lineHeight: '64px' }}
+          style={{ lineHeight: '64px', display: 'flex',flexWrap:'wrap' }}
           onClick={onHeaderMenuItemClick}
         >
           {itemList}
         </Menu>
       </div>
     )
-}
+};
 
 Menus.propTypes = {
-  onClick: PropTypes.func
-}
+  menus: PropTypes.array.isRequired,
+  onHeaderMenuItemClick: PropTypes.func
+};
 
 export default Menus;

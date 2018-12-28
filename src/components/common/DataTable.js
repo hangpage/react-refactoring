@@ -60,12 +60,14 @@ class DataTable extends React.Component {
     const url = this.props.url;
     const that = this;
     this.propmise = request(`${url}?${qs.stringify(params)}`).then(({data}) => {
-      this.setState({
+      if(data.success){
+        this.setState({
           loading: false,
           params: params,
           dataSource: data.data,
           pagination: Object.assign({},that.state.pagination, {total: data.total, current: params.pageNum})
-      })
+        })
+      }
     })
   };
 

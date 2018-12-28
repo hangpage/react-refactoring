@@ -102,10 +102,14 @@ export default {
     },
     updateCalcMoneyList(state, action){
       const list = _.cloneDeep(state.calcMoneyList);
-      const finder = _.find(list, (o) => {return o.payType === action.payload.payType});
-      let otherState = {};
+      const finder = _.find(list, (o) => o.payType === action.payload.payType);
+      let otherState = {};//针对不同的支付方式添加额外计算出来的state，之后考虑watcher
       switch (action.payload.payType) {
         case PayTypeConst.HUI_YUAN_KA:
+          if(Number(state.memberInfo.memberCard.balance) < Number(action.payload.value)){
+            action.payload.value = 0;
+            message.error('会员卡余额不足！');
+          }
           otherState.balanceAfterPay = BigNumber(state.memberInfo.memberCard.balance).minus(action.payload.value).toNumber();
           break;
       }

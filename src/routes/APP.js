@@ -3,11 +3,12 @@ import {connect} from 'dva';
 import _ from 'lodash';
 import {Link} from 'dva/router';
 import styles from './IndexPage.css';
-import {Layout, Menu, Tabs, Switch} from 'antd';
+import {Layout, Menu, Tabs, Dropdown, Switch} from 'antd';
 import MainTab from '../components/common/MainTab'
 import HeaderMenu from '../components/common/HeaderMenu';
 import SliderMenu from '../components/common/SliderMenu';
 import Components from './index';
+import Icon from "antd/es/icon";
 
 
 const TabPane = Tabs.TabPane;
@@ -23,7 +24,9 @@ function APP({children, location, dispatch, app}) {
     menus,
     currentMenuItemChildren,
     menuTreeData,
-    theme
+    theme,
+    dropHospitalsList,
+    userInfo
   } = app;
 
   const tabProps = {
@@ -52,7 +55,7 @@ function APP({children, location, dispatch, app}) {
         }
       })
     }
-  }
+  };
 
   const onHeaderMenuItemClick = ({item, key, keyPath}) => {
     dispatch({
@@ -61,7 +64,7 @@ function APP({children, location, dispatch, app}) {
         currentMenuItemChildren: _.find(menuTreeData, {id: key}).children || []
       }
     })
-  }
+  };
 
   const changeTheme = (value) => {
     dispatch({
@@ -70,14 +73,14 @@ function APP({children, location, dispatch, app}) {
         theme: value ? 'light' : 'dark'
       }
     })
-  }
+  };
 
   const onSiderMenuItemClick = ({key, keyPath, item}) => {
     const tab = {
       title: item.props.children,
       key: key,
       content: Components[key]
-    }
+    };
     if (_.find(panes, {key: tab.key})) {
       dispatch({
         type: 'app/changeTab',
@@ -91,13 +94,13 @@ function APP({children, location, dispatch, app}) {
         payload: tab
       })
     }
-  }
+  };
 
   const onEdit = (targetKey, action) => {
     if(action === 'remove'){
         tabProps.removeTab(targetKey);
     }
-  }
+  };
 
   const renderTabBar = (pane) => {
     return (
@@ -105,22 +108,49 @@ function APP({children, location, dispatch, app}) {
         很棒
       </Link>
     )
-  }
+  };
+
+  const onDropMenuClick = (e) => {
+    dispatch({
+      type: 'app/switchStore',
+      payload: {
+        hospitalId: e.key
+      }
+    })
+  };
+
+  const menu = (
+    <Menu>
+      <Menu.SubMenu title='切换门店'>
+        {dropHospitalsList.map((hospital) => <Menu.Item onClick={onDropMenuClick} key={hospital.id}>{hospital.name}</Menu.Item>)}
+      </Menu.SubMenu>
+      <Menu.Item>修改密码</Menu.Item>
+      <Menu.Item>退出登录</Menu.Item>
+    </Menu>
+  );
 
   //TODO use renderTabBar to create Link to update current pane
   return (
     <div>
       <Layout>
-        <Header className="header">
+        <Header className="lyb-header">
           <div className={styles.logo}/>
           <HeaderMenu menus={menus} onHeaderMenuItemClick={onHeaderMenuItemClick}/>
+          <Dropdown overlay={menu} trigger={['click']}>
+            <span style={{color:'white',minWidth: '130px', fontSize:'13px'}}>
+              <span>{userInfo.name}</span>
+              <span style={{margin: '0 4px'}}>|</span>
+              <span>{userInfo.hospitalName}</span>
+              <Icon type="down" />
+            </span>
+          </Dropdown>
         </Header>
         <Layout>
-          <Sider width={200} style={{background: '#fff'}}>
+          <Sider width={200} style={{overflow: 'auto',position: 'fixed', left: 0,height: '100vh',background: '#fff'}}>
             <SliderMenu currentMenuItemChildren={currentMenuItemChildren} onSiderMenuItemClick={onSiderMenuItemClick} theme={theme}/>
             <Switch onChange={changeTheme} checkedChildren="黑" unCheckedChildren="白" defaultChecked/>
           </Sider>
-          <Layout style={{padding: '24px'}}>
+          <Layout style={{padding: '24px', marginLeft: 200}}>
             <Content style={{background: '#fff', padding: 24, margin: 0, minHeight: 'calc(100vh - 112px)'}}>
               {/*<MainTab {...tabProps}/>*/}
               {/*<Tabs*/}

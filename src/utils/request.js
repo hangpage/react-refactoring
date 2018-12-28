@@ -1,4 +1,5 @@
 import fetch from 'dva/fetch';
+import {routerRedux} from "dva/router";
 
 function parseJSON(response) {
   return response.json();
@@ -12,6 +13,13 @@ function checkStatus(response) {
   const error = new Error(response.statusText);
   error.response = response;
   throw error;
+}
+
+function judgeLoginStatus(data) {
+  if(data.code === 401){//未登录状态
+     routerRedux.push('/login');
+     return {data};
+  }
 }
 
 /**
