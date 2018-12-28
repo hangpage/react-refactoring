@@ -91,6 +91,8 @@ function Uncash({location, dispatch, uncash, loading}) {
     dataIndex: 'doctorName',
   }];
 
+
+
   console.log(loading)
   return (
     <div>
