@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'dva';
-import {Input, Checkbox, Button} from 'antd';
+import {Input, Checkbox, Button, message} from 'antd';
 import DataTable from "../../../components/common/DataTable";
 import MemberInfoBox from "../../../components/common/MemberInfoBox";
 import ComboBox from "../../../components/common/ComboBox";
@@ -80,7 +80,14 @@ const Settle = ({location, dispatch, settle, loading}) => {
   let tableRef = null; //声明ref
 
   const getSelectedRows = (e) => {
-    console.log(tableRef.getSelectedRows());
+    return tableRef.getSelectedRows();
+  };
+
+  const handleSettle = () => {
+      const data = getSelectedRows();
+      if(!data.length){
+        return message.error('请选择收费项目！');
+      }
   };
 
   const onMoneyInputChange = (payType, e) => {
@@ -176,9 +183,9 @@ const Settle = ({location, dispatch, settle, loading}) => {
         })}>
           <span>方式：POS</span>
           <span>机器：</span>
-          <ComboBox url={SysUrlConst.SYS_POS} text="transactionId" valueProp="transactionId"/>
+          <ComboBox url={SysUrlConst.SYS_POS} text="transactionId" valueProp="transactionId" nameProp="transactionId"/>
           <span>卡号后四位：</span>
-          <Input disabled={true} value={memberInfo.memberCard && memberInfo.memberCard.balance}/>
+          <Input />
           <span>实收金额：</span>
           <Input onChange={(e) => onMoneyInputChange(PayTypeConst.POS, e)}
           value={calcPrice(calcMoneyList, PayTypeConst.POS)}/>
@@ -196,7 +203,7 @@ const Settle = ({location, dispatch, settle, loading}) => {
       <div className="cash-bold-title">收费金额</div>
       <div>费用合计：{totalMoney}</div>
       <div className="text-align-center">
-        <Button type="primary">结算</Button>
+        <Button type="primary" onClick={handleSettle}>结算</Button>
         <Button type="primary" className="ml20">取消</Button>
       </div>
     </div>
