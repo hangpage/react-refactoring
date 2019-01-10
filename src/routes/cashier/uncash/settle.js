@@ -147,7 +147,7 @@ const Settle = ({location, dispatch, settle, loading}) => {
       let finder = newList.find((o) => o.chargeType !== payType);
       if(finder){
         finder.value = BigNumber(totalMoney).minus(value).toNumber();
-      }else{//如果另外一种支付方式还未编辑过价格
+      }else{//如果另外一种支付方式还未编辑过价格,没有编辑过价格是不会出现在calcMoneyList中的
         newList.push({
           chargeType: chargeTypeValue.find(o => o !== payType),
           value: BigNumber(totalMoney).minus(value)
