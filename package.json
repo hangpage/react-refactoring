@@ -19,7 +19,8 @@
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "react": "^15.5.1",
-    "react-dom": "^15.5.1"
+    "react-dom": "^15.5.1",
+    "prop-types": "latest"
   },
   "devDependencies": {
     "babel-plugin-dva-hmr": "^0.3.2",

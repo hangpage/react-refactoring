@@ -20,8 +20,10 @@ export default {
     chargeTypeValue: [], //已选择的支付方式
     totalMoney: 0, //订单总额
     voucherList: [], //客人优惠券列表
-    calcMoneyList: [], //两种支付方式各自支付的金额
-    balanceAfterPay: 0, //会员卡客人支付后余额
+    calcMoneyList: [], //两种支付方式各自支付的金额 必须始终保持至多两种支付方式的状态
+    otherState: {
+      balanceAfterPay: 0
+    },
   },
 
   subscriptions: {
@@ -101,24 +103,7 @@ export default {
       return {...state, ...action.payload};
     },
     updateCalcMoneyList(state, action){
-      const list = _.cloneDeep(state.calcMoneyList);
-      const finder = _.find(list, (o) => o.payType === action.payload.payType);
-      let otherState = {};//针对不同的支付方式添加额外计算出来的state，之后考虑watcher
-      switch (action.payload.payType) {
-        case PayTypeConst.HUI_YUAN_KA:
-          if(Number(state.memberInfo.memberCard.balance) < Number(action.payload.value)){
-            action.payload.value = 0;
-            message.error('会员卡余额不足！');
-          }
-          otherState.balanceAfterPay = BigNumber(state.memberInfo.memberCard.balance).minus(action.payload.value).toNumber();
-          break;
-      }
-      if(finder){
-        finder.value = action.payload.value;
-      }else{
-        list.push(action.payload);
-      }
-      return {...state, ...{calcMoneyList: list}, ...otherState};
+      return {...state, ...action.payload};
     },
     updateValue(state, action) {
       let array = [];

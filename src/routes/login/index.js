@@ -16,7 +16,8 @@ const Login = ({
                    validateFieldsAndScroll,
                  },
                }) => {
-  const { remember, username, password } = login;
+  const {remember, username, password} = login;
+
   function handleSubmit() {
     validateFieldsAndScroll((errors, values) => {
       if (errors) {
@@ -28,13 +29,13 @@ const Login = ({
   }
 
   const onCheckBoxChange = (e) => {
-      dispatch({
-        type: 'login/onCheckBoxChange',
-        payload: {
-          remember: e.target.checked
-        }
-      })
-  }
+    dispatch({
+      type: 'login/onCheckBoxChange',
+      payload: {
+        remember: e.target.checked
+      }
+    })
+  };
 
   return (
     <div className={commonStyles.verticalCenter}>
@@ -65,18 +66,18 @@ const Login = ({
             <Checkbox checked={remember} onChange={onCheckBoxChange}>记住密码</Checkbox>
           )}
           <Button type="primary" onClick={handleSubmit} className={styles.loginFormButton}
-                  loading={loading.effects.login}>
+                  loading={loading.effects.login} htmlType="button">
             登录
           </Button>
         </FormItem>
       </Form>
     </div>
   )
-}
+};
 
 Login.propTypes = {
   form: PropTypes.object,
   dispatch: PropTypes.func
-}
+};
 
 export default connect(({loading, login}) => ({loading, login}))(Form.create()(Login))
